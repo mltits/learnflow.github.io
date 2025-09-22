@@ -17,7 +17,20 @@
         .btn-primary:hover { background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%); }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="relative bg-cover bg-center bg-no-repeat min-h-screen"
+      style="background-image: url('assets/images/classroom.jpg');">
+
+  <!-- overlay to keep text readable -->
+  <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+
+  <!-- Put all your existing content inside this wrapper so it sits above the overlay -->
+  <div class="relative z-10">
+    <!-- NAV, HERO, SECTIONS, FOOTER — paste your current content here -->
+  </div>
+
+  <!-- scripts (AOS init) -->
+</body>
+
     <!-- Navigation -->
     <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -65,7 +78,7 @@
     </section>
 
     <!-- Featured Tutors Section -->
-    <section id="tutors" class="py-20 bg-white">
+    <section id="tutors" class="py-20 bg-transparent">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-aos="fade-up">Our Expert Tutors</h2>
@@ -272,4 +285,5 @@
 </body>
 
 </html>
+
 
