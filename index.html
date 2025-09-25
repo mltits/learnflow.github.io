@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LearnFlow - Private Tutoring & Lessons</title>
+    <meta name="description" content="LearnFlow offers personalized tutoring in Mathematics, Science, English, and more. Connect with expert tutors for academic success.">
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -11,26 +12,23 @@
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f3f4f6; /* Fallback color */
+        }
         .hero-gradient { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
         .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
         .btn-primary:hover { background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%); }
     </style>
 </head>
-<body class="relative bg-contain bg-top bg-no-repeat min-h-screen"
+<body class="relative bg-cover bg-top bg-no-repeat min-h-screen"
       style="background-image: url('assets/images/classroom.jpg'); background-attachment: fixed;">
 
   <!-- overlay to keep text readable -->
   <div class="absolute inset-0 bg-black bg-opacity-20"></div>
 
-  <!-- Put all your existing content inside this wrapper so it sits above the overlay -->
+  <!-- All content inside this wrapper -->
   <div class="relative z-10">
-    <!-- NAV, HERO, SECTIONS, FOOTER — paste your current content here -->
-  </div>
-
-  <!-- scripts (AOS init) -->
-</body>
-
     <!-- Navigation -->
     <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -46,25 +44,24 @@
                         <a href="#how-it-works" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">How It Works</a>
                     </div>
                 </div>
-                <div class="flex flex-col sm:flex-row items-center gap-2">
-  <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20session"
-     target="_blank"
-     class="px-4 py-2 rounded-md text-sm font-medium text-white btn-primary flex items-center justify-center w-full sm:w-auto">
-     Book now
-  </a>
-  <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20session"
-     target="_blank"
-     class="px-4 py-2 rounded-md text-sm font-medium text-white btn-primary flex items-center justify-center w-full sm:w-auto">
-     Book a Free Demo
-  </a>
-</div>
-
+                <div class="flex items-center space-x-4">
+                    <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20session"
+                       target="_blank"
+                       class="px-4 py-2 rounded-md text-sm font-medium text-white btn-primary flex items-center justify-center h-10">
+                       Book now
+                    </a>
+                    <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20session"
+                       target="_blank"
+                       class="px-4 py-2 rounded-md text-sm font-medium text-white btn-primary flex items-center justify-center h-10">
+                       Book a Free Demo
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-   <section class="hero-gradient text-white pt-24 pb-20">
+    <section class="hero-gradient text-white pt-24 pb-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 <h1 class="text-4xl md:text-6xl font-bold mb-6" data-aos="fade-up">Personalized Learning, Exceptional Results</h1>
@@ -79,17 +76,16 @@
     </section>
 
     <!-- Featured Tutors Section -->
-    <section id="tutors" class="py-20 bg-transparent">
+    <section id="tutors" class="py-20 bg-white bg-opacity-90">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-aos="fade-up">Our Expert Tutors</h2>
-               <p class="text-xl text-purple-500 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">Highly qualified professionals dedicated to your academic success</p>
-
+                <p class="text-xl text-purple-500 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">Highly qualified professionals dedicated to your academic success</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Tutor 1 -->
                 <div class="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up">
-                    <h3 class="text-xl font-semibold text-center mb-2 hovered-element">Asma Siddiqua</h3>
+                    <h3 class="text-xl font-semibold text-center mb-2">Asma Siddiqua</h3>
                     <p class="text-purple-600 text-center mb-4">Chemistry & Science</p>
                     <p class="text-gray-600 text-center mb-4">BA in Chemistry with 15+ years experience. Teaches Science (grades 1-10), Chemistry (grades 11-12), Math (grades 1-10), English (grades 1-10). Specializes in international boards: British curriculum, IGCSE, ICSE, CBSE.</p>
                     <div class="text-center">
@@ -117,18 +113,18 @@
                         <span class="text-gray-600 ml-2">4.9 (105 reviews)</span>
                     </div>
                 </div>
-                <!-- Tutor 5 -->
-                <div class="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up" data-aos-delay="400">
+                <!-- Tutor 4 -->
+                <div class="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up" data-aos-delay="300">
                     <h3 class="text-xl font-semibold text-center mb-2">Sana siddiqui</h3>
                     <p class="text-purple-600 text-center mb-4">Science and English</p>
-                    <p class="text-gray-600 text-center mb-4">An English Trainer with a Master of Science (M.Sc) and a Bachelor of Education (B.Ed). Combines strong academic qualifications with professional teaching expertise to deliver effective training programs and enhance learners’ command of the English language.</p>
+                    <p class="text-gray-600 text-center mb-4">An English Trainer with a Master of Science (M.Sc) and a Bachelor of Education (B.Ed). Combines strong academic qualifications with professional teaching expertise to deliver effective training programs and enhance learners' command of the English language.</p>
                     <div class="text-center">
                         <span class="text-yellow-400">★★★★</span>
                         <span class="text-gray-600 ml-2">4 (67 reviews)</span>
                     </div>
                 </div>
-                 <!-- Tutor 2 -->
-                <div class="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up" data-aos-delay="100">
+                 <!-- Tutor 5 -->
+                <div class="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up" data-aos-delay="400">
                     <h3 class="text-xl font-semibold text-center mb-2">Sayada Nazneen</h3>
                     <p class="text-purple-600 text-center mb-4">Mathematics</p>
                     <p class="text-gray-600 text-center mb-4">A Math Trainer with a Bachelor of Engineering (B.E) in Electronics. Brings strong analytical and problem-solving skills, applying technical expertise to deliver clear and effective mathematics training for learners at various levels</p>
@@ -141,101 +137,94 @@
         </div>
     </section>
 
-
     <!-- About Us Section -->
-<section id="about-us" class="py-20 bg-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-aos="fade-up">
-        About Us
-      </h2>
-      <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
-        At LearnFlow, we believe in personalized learning that adapts to each student’s unique needs. 
-        Our expert tutors provide engaging lessons that inspire confidence and help students achieve their academic goals.
-      </p>
-    </div>
+    <section id="about-us" class="py-20 bg-white bg-opacity-90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-aos="fade-up">
+                    About Us
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                    At LearnFlow, we believe in personalized learning that adapts to each student's unique needs. 
+                    Our expert tutors provide engaging lessons that inspire confidence and help students achieve their academic goals.
+                </p>
+            </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="text-center p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up">
-        <h3 class="text-xl font-semibold mb-2 text-purple-700">Our Mission</h3>
-        <p class="text-gray-600">To provide high-quality, personalized tutoring that empowers students to succeed academically and beyond.</p>
-      </div>
-      <div class="text-center p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up" data-aos-delay="100">
-        <h3 class="text-xl font-semibold mb-2 text-purple-700">Our Approach</h3>
-        <p class="text-gray-600">We combine expert knowledge with adaptive teaching methods to ensure students truly understand and apply concepts.</p>
-      </div>
-      <div class="text-center p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up" data-aos-delay="200">
-        <h3 class="text-xl font-semibold mb-2 text-purple-700">Our Values</h3>
-        <p class="text-gray-600">Integrity, dedication, and innovation guide us in delivering the best learning experience for every student.</p>
-      </div>
-    </div>
-  </div>
-</section>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up">
+                    <h3 class="text-xl font-semibold mb-2 text-purple-700">Our Mission</h3>
+                    <p class="text-gray-600">To provide high-quality, personalized tutoring that empowers students to succeed academically and beyond.</p>
+                </div>
+                <div class="text-center p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-xl font-semibold mb-2 text-purple-700">Our Approach</h3>
+                    <p class="text-gray-600">We combine expert knowledge with adaptive teaching methods to ensure students truly understand and apply concepts.</p>
+                </div>
+                <div class="text-center p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-xl font-semibold mb-2 text-purple-700">Our Values</h3>
+                    <p class="text-gray-600">Integrity, dedication, and innovation guide us in delivering the best learning experience for every student.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Subjects Section -->
+    <section id="subjects" class="relative py-20 bg-cover bg-center bg-fixed text-white" 
+             style="background-image: url('assets/images/kids.webp');">
+        <!-- Dark overlay -->
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
 
-  <!-- Subjects Section -->
-<!-- Subjects Section -->
-<section id="subjects" 
-    class="relative py-20 bg-cover bg-center bg-fixed text-white" 
-    style="background-image: url('assets/images/kids.webp');">
+        <!-- Content -->
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4" data-aos="fade-up">Subjects We Cover</h2>
+                <p class="text-xl max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                    Comprehensive tutoring across all academic disciplines
+                </p>
+            </div>
 
-  <!-- Dark overlay -->
-  <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-
-  <!-- Content -->
-  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4" data-aos="fade-up">Subjects We Cover</h2>
-          <p class="text-xl max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
-              Comprehensive tutoring across all academic disciplines
-          </p>
-      </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div class="text-center p-6 bg-white bg-opacity-20 rounded-lg shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up">
-              <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span class="text-2xl">🧮</span>
-              </div>
-              <h3 class="font-semibold mb-2">Mathematics</h3>
-          </div>
-          <div class="text-center p-6 bg-white bg-opacity-20 rounded-lg shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up" data-aos-delay="100">
-              <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span class="text-2xl">🌿</span>
-              </div>
-              <h3 class="font-semibold mb-2">Science</h3>
-          </div>
-          <div class="text-center p-6 bg-white bg-opacity-20 rounded-lg shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up" data-aos-delay="200">
-              <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span class="text-2xl">🧪</span>
-              </div>
-              <h3 class="font-semibold mb-2">Chemistry</h3>
-          </div>
-          <div class="text-center p-6 bg-white bg-opacity-20 rounded-lg shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up" data-aos-delay="300">
-              <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span class="text-2xl">🧬</span>
-              </div>
-              <h3 class="font-semibold mb-2">Biology</h3>
-          </div>
-          <div class="text-center p-6 bg-white bg-opacity-20 rounded-lg shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up" data-aos-delay="400">
-              <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span class="text-2xl">✍️</span>
-              </div>
-              <h3 class="font-semibold mb-2">English</h3>
-          </div>
-          <div class="text-center p-6 bg-white bg-opacity-20 rounded-lg shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up" data-aos-delay="500">
-              <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span class="text-2xl">🖥️</span>
-              </div>
-              <h3 class="font-semibold mb-2">Computer</h3>
-          </div>
-      </div>
-  </div>
-</section>
-
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="text-center p-6 bg-white bg-opacity-20 rounded-lg shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">🧮</span>
+                    </div>
+                    <h3 class="font-semibold mb-2">Mathematics</h3>
+                </div>
+                <div class="text-center p-6 bg-white bg-opacity-20 rounded-lg shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">🌿</span>
+                    </div>
+                    <h3 class="font-semibold mb-2">Science</h3>
+                </div>
+                <div class="text-center p-6 bg-white bg-opacity-20 rounded-lg shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">🧪</span>
+                    </div>
+                    <h3 class="font-semibold mb-2">Chemistry</h3>
+                </div>
+                <div class="text-center p-6 bg-white bg-opacity-20 rounded-lg shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">🧬</span>
+                    </div>
+                    <h3 class="font-semibold mb-2">Biology</h3>
+                </div>
+                <div class="text-center p-6 bg-white bg-opacity-20 rounded-lg shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">✍️</span>
+                    </div>
+                    <h3 class="font-semibold mb-2">English</h3>
+                </div>
+                <div class="text-center p-6 bg-white bg-opacity-20 rounded-lg shadow-md hover:shadow-lg transition duration-300" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">🖥️</span>
+                    </div>
+                    <h3 class="font-semibold mb-2">Computer</h3>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- How It Works Section -->
-    <section id="how-it-works" class="py-20 bg-white">
+    <section id="how-it-works" class="py-20 bg-white bg-opacity-90">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-aos="fade-up">How It Works</h2>
@@ -249,7 +238,6 @@
                         <span class="text-3xl">1</span>
                     </div>
                     <h3 class="text-xl font-semibold mb-4">We will provide them with the best faculty or expert tutors</h3>
-                    
                 </div>
                 <div class="text-center" data-aos="fade-up" data-aos-delay="100">
                     <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -262,7 +250,6 @@
                         <span class="text-3xl">3</span>
                     </div>
                     <h3 class="text-xl font-semibold mb-4">Register for the course</h3>
-
                 </div>
             </div>
         </div>
@@ -286,7 +273,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
-                    <h3 class="text-xl font-bold mb-4">LearnEase</h3>
+                    <h3 class="text-xl font-bold mb-4">LearnFlow</h3>
                     <p class="text-gray-400">Expert tutoring for academic excellence</p>
                 </div>
                 <div>
@@ -307,7 +294,6 @@
                 </div>
                 <div>
                     <h4 class="font-semibold mb-4">Contact Info</h4>
-                 
                     <p class="text-gray-400">+91 74149 65374</p>
                 </div>
             </div>
@@ -316,31 +302,18 @@
             </div>
         </div>
     </footer>
+  </div>
 
-    <script>
-        AOS.init({
-            duration: 800,
-            once: true
-        });
-    </script>
+  <script>
+      AOS.init({
+          duration: 800,
+          once: true
+      });
+      
+      // Initialize feather icons
+      document.addEventListener('DOMContentLoaded', function() {
+          feather.replace();
+      });
+  </script>
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
