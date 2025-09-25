@@ -19,10 +19,26 @@
         .hero-gradient { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
         .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
         .btn-primary:hover { background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%); }
+        
+        /* Fix for iOS background image rendering */
+        .bg-fixed-ios {
+            background-attachment: scroll;
+        }
+        
+        @media (min-width: 768px) {
+            .bg-fixed-ios {
+                background-attachment: fixed;
+            }
+        }
+        
+        /* Ensure images are properly displayed */
+        .bg-image-fallback {
+            background-color: #764ba2; /* Fallback color similar to gradient */
+        }
     </style>
 </head>
-<body class="relative bg-cover bg-top bg-no-repeat min-h-screen"
-      style="background-image: url('assets/images/classroom.jpg'); background-attachment: fixed;">
+<body class="relative min-h-screen bg-image-fallback"
+      style="background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80'); background-size: cover; background-position: center; background-repeat: no-repeat;">
 
   <!-- overlay to keep text readable -->
   <div class="absolute inset-0 bg-black bg-opacity-20"></div>
@@ -44,17 +60,20 @@
                         <a href="#how-it-works" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">How It Works</a>
                     </div>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20session"
-                       target="_blank"
-                       class="px-4 py-2 rounded-md text-sm font-medium text-white btn-primary flex items-center justify-center h-10">
-                       Book now
-                    </a>
-                    <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20session"
-                       target="_blank"
-                       class="px-4 py-2 rounded-md text-sm font-medium text-white btn-primary flex items-center justify-center h-10">
-                       Book a Free Demo
-                    </a>
+                <!-- Improved mobile-responsive buttons -->
+                <div class="flex items-center">
+                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+                        <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20session"
+                           target="_blank"
+                           class="px-4 py-2 rounded-md text-sm font-medium text-white btn-primary flex items-center justify-center h-10 whitespace-nowrap">
+                           Book Now
+                        </a>
+                        <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20free%20demo"
+                           target="_blank"
+                           class="px-4 py-2 rounded-md text-sm font-medium text-white bg-green-500 hover:bg-green-600 flex items-center justify-center h-10 whitespace-nowrap">
+                           Free Demo
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -70,13 +89,18 @@
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4" data-aos="fade-up" data-aos-delay="200">
                     <a href="#how-it-works" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-purple-700 transition duration-300">Learn More</a>
+                    <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20free%20demo" 
+                       target="_blank"
+                       class="bg-green-500 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-green-600 transition duration-300">
+                       Book Free Demo
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Featured Tutors Section -->
-    <section id="tutors" class="py-20 bg-white bg-opacity-20">
+    <section id="tutors" class="py-20 bg-white bg-opacity-95">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-aos="fade-up">Our Expert Tutors</h2>
@@ -138,7 +162,7 @@
     </section>
 
     <!-- About Us Section -->
-    <section id="about-us" class="py-20 bg-white bg-opacity-90">
+    <section id="about-us" class="py-20 bg-white bg-opacity-95">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-aos="fade-up">
@@ -168,8 +192,8 @@
     </section>
 
     <!-- Subjects Section -->
-    <section id="subjects" class="relative py-20 bg-cover bg-center bg-fixed text-white" 
-             style="background-image: url('assets/images/kids.webp');">
+    <section id="subjects" class="relative py-20 bg-cover bg-center text-white bg-fixed-ios bg-image-fallback"
+             style="background-image: url('https://images.unsplash.com/photo-1497636577773-f1231844b336?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');">
         <!-- Dark overlay -->
         <div class="absolute inset-0 bg-black bg-opacity-50"></div>
 
@@ -224,7 +248,7 @@
     </section>
 
     <!-- How It Works Section -->
-    <section id="how-it-works" class="py-20 bg-white bg-opacity-90">
+    <section id="how-it-works" class="py-20 bg-white bg-opacity-95">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-aos="fade-up">How It Works</h2>
@@ -262,9 +286,18 @@
             <p class="text-xl mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
                 Join thousands of students who have achieved academic success with our expert tutors
             </p>
-            <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20session" class="bg-white text-purple-700 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition duration-300 inline-block" data-aos="fade-up" data-aos-delay="200">
-                Book Your First Session
-            </a>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20session" 
+                   class="bg-white text-purple-700 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition duration-300 inline-block" 
+                   data-aos="fade-up" data-aos-delay="200">
+                    Book Your First Session
+                </a>
+                <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20free%20demo" 
+                   class="bg-green-500 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-green-600 transition duration-300 inline-block" 
+                   data-aos="fade-up" data-aos-delay="300">
+                    Book Free Demo
+                </a>
+            </div>
         </div>
     </section>
 
@@ -317,5 +350,3 @@
   </script>
 </body>
 </html>
-
-
