@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LearnFlow - Private Tutoring & Lessons</title>
     <meta name="description" content="LearnFlow offers personalized tutoring in Mathematics, Science, English, and more. Connect with expert tutors for academic success.">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { 
@@ -17,122 +19,13 @@
         .hero-gradient { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
         .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
         .btn-primary:hover { background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%); }
-        
-        /* Fix for iOS background image rendering */
-        .bg-fixed-ios {
-            background-attachment: scroll;
-        }
-        
-        @media (min-width: 768px) {
-            .bg-fixed-ios {
-                background-attachment: fixed;
-            }
-        }
-        
-        /* Ensure images are properly displayed */
-        .bg-image-fallback {
-            background-color: #764ba2; /* Fallback color similar to gradient */
-        }
-        
-        /* Photo upload styling */
-        .upload-area {
-            border: 2px dashed #cbd5e0;
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .upload-area:hover {
-            border-color: #667eea;
-            background-color: #f7fafc;
-        }
-        
-        .upload-area.dragover {
-            border-color: #667eea;
-            background-color: #edf2f7;
-        }
-        
-        .preview-image {
-            max-width: 100%;
-            max-height: 200px;
-            margin-top: 1rem;
-            border-radius: 0.375rem;
-            display: none;
-        }
-        
-        /* Admin panel styling */
-        .admin-panel {
-            position: fixed;
-            top: 50%;
-            right: 0;
-            transform: translateY(-50%);
-            background: white;
-            padding: 1rem;
-            border-radius: 0.5rem 0 0 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            width: 300px;
-            transition: transform 0.3s;
-        }
-        
-        .admin-panel.collapsed {
-            transform: translateX(calc(100% - 40px)) translateY(-50%);
-        }
-        
-        .toggle-admin {
-            position: absolute;
-            left: -40px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 0.5rem 0 0 0.5rem;
-            padding: 0.5rem;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-        }
     </style>
 </head>
-<body class="relative min-h-screen bg-image-fallback"
-      style="background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+<body class="relative bg-cover bg-top bg-no-repeat min-h-screen"
+      style="background-image: url('assets/images/classroom.jpg'); background-attachment: fixed;">
 
   <!-- overlay to keep text readable -->
   <div class="absolute inset-0 bg-black bg-opacity-20"></div>
-
-  <!-- Admin Panel for Photo Upload -->
-  <div class="admin-panel">
-    <button class="toggle-admin" onclick="toggleAdminPanel()">⚙️</button>
-    <h3 class="text-lg font-semibold mb-4">Customize Website Photos</h3>
-    
-    <div class="mb-6">
-      <h4 class="font-medium mb-2">Classroom Background</h4>
-      <div class="upload-area" id="classroomUpload">
-        <p>Click or drag to upload classroom photo</p>
-        <input type="file" id="classroomFile" accept="image/*" class="hidden">
-        <img id="classroomPreview" class="preview-image" alt="Classroom preview">
-      </div>
-      <button onclick="applyClassroomPhoto()" class="mt-2 w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition">Apply Classroom Photo</button>
-    </div>
-    
-    <div class="mb-6">
-      <h4 class="font-medium mb-2">Kids Background</h4>
-      <div class="upload-area" id="kidsUpload">
-        <p>Click or drag to upload kids photo</p>
-        <input type="file" id="kidsFile" accept="image/*" class="hidden">
-        <img id="kidsPreview" class="preview-image" alt="Kids preview">
-      </div>
-      <button onclick="applyKidsPhoto()" class="mt-2 w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition">Apply Kids Photo</button>
-    </div>
-    
-    <div class="mt-4 text-sm text-gray-600">
-      <p>Recommended size: 1920x1080 pixels or larger</p>
-      <p>Formats: JPG, PNG, WebP</p>
-    </div>
-  </div>
 
   <!-- All content inside this wrapper -->
   <div class="relative z-10">
@@ -151,20 +44,17 @@
                         <a href="#how-it-works" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">How It Works</a>
                     </div>
                 </div>
-                <!-- Improved mobile-responsive buttons -->
-                <div class="flex items-center">
-                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
-                        <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20session"
-                           target="_blank"
-                           class="px-4 py-2 rounded-md text-sm font-medium text-white btn-primary flex items-center justify-center h-10 whitespace-nowrap">
-                           Book Now
-                        </a>
-                        <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20free%20demo"
-                           target="_blank"
-                           class="px-4 py-2 rounded-md text-sm font-medium text-white bg-green-500 hover:bg-green-600 flex items-center justify-center h-10 whitespace-nowrap">
-                           Free Demo
-                        </a>
-                    </div>
+                <div class="flex items-center space-x-4">
+                    <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20session"
+                       target="_blank"
+                       class="px-4 py-2 rounded-md text-sm font-medium text-white btn-primary flex items-center justify-center h-10">
+                       Book now
+                    </a>
+                    <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20session"
+                       target="_blank"
+                       class="px-4 py-2 rounded-md text-sm font-medium text-white btn-primary flex items-center justify-center h-10">
+                       Book a Free Demo
+                    </a>
                 </div>
             </div>
         </div>
@@ -180,18 +70,13 @@
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4" data-aos="fade-up" data-aos-delay="200">
                     <a href="#how-it-works" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-purple-700 transition duration-300">Learn More</a>
-                    <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20free%20demo" 
-                       target="_blank"
-                       class="bg-green-500 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-green-600 transition duration-300">
-                       Book Free Demo
-                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Featured Tutors Section -->
-    <section id="tutors" class="py-20 bg-white bg-opacity-95">
+    <section id="tutors" class="py-20 bg-white bg-opacity-90">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-aos="fade-up">Our Expert Tutors</h2>
@@ -253,7 +138,7 @@
     </section>
 
     <!-- About Us Section -->
-    <section id="about-us" class="py-20 bg-white bg-opacity-95">
+    <section id="about-us" class="py-20 bg-white bg-opacity-90">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-aos="fade-up">
@@ -283,8 +168,8 @@
     </section>
 
     <!-- Subjects Section -->
-    <section id="subjects" class="relative py-20 bg-cover bg-center text-white bg-fixed-ios bg-image-fallback"
-             style="background-image: url('https://images.unsplash.com/photo-1497636577773-f1231844b336?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');">
+    <section id="subjects" class="relative py-20 bg-cover bg-center bg-fixed text-white" 
+             style="background-image: url('assets/images/kids.webp');">
         <!-- Dark overlay -->
         <div class="absolute inset-0 bg-black bg-opacity-50"></div>
 
@@ -339,7 +224,7 @@
     </section>
 
     <!-- How It Works Section -->
-    <section id="how-it-works" class="py-20 bg-white bg-opacity-95">
+    <section id="how-it-works" class="py-20 bg-white bg-opacity-90">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-aos="fade-up">How It Works</h2>
@@ -377,18 +262,9 @@
             <p class="text-xl mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
                 Join thousands of students who have achieved academic success with our expert tutors
             </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20session" 
-                   class="bg-white text-purple-700 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition duration-300 inline-block" 
-                   data-aos="fade-up" data-aos-delay="200">
-                    Book Your First Session
-                </a>
-                <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20free%20demo" 
-                   class="bg-green-500 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-green-600 transition duration-300 inline-block" 
-                   data-aos="fade-up" data-aos-delay="300">
-                    Book Free Demo
-                </a>
-            </div>
+            <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20session" class="bg-white text-purple-700 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition duration-300 inline-block" data-aos="fade-up" data-aos-delay="200">
+                Book Your First Session
+            </a>
         </div>
     </section>
 
@@ -429,119 +305,14 @@
   </div>
 
   <script>
-      // Initialize AOS
       AOS.init({
           duration: 800,
           once: true
       });
       
-      // Photo upload functionality
-      let classroomPhoto = null;
-      let kidsPhoto = null;
-      
-      // Set up upload areas
-      document.getElementById('classroomUpload').addEventListener('click', function() {
-          document.getElementById('classroomFile').click();
-      });
-      
-      document.getElementById('kidsUpload').addEventListener('click', function() {
-          document.getElementById('kidsFile').click();
-      });
-      
-      // Handle file selection
-      document.getElementById('classroomFile').addEventListener('change', function(e) {
-          handleFileSelect(e, 'classroomPreview', function(result) {
-              classroomPhoto = result;
-          });
-      });
-      
-      document.getElementById('kidsFile').addEventListener('change', function(e) {
-          handleFileSelect(e, 'kidsPreview', function(result) {
-              kidsPhoto = result;
-          });
-      });
-      
-      // Drag and drop functionality
-      ['classroomUpload', 'kidsUpload'].forEach(id => {
-          const element = document.getElementById(id);
-          
-          element.addEventListener('dragover', function(e) {
-              e.preventDefault();
-              element.classList.add('dragover');
-          });
-          
-          element.addEventListener('dragleave', function() {
-              element.classList.remove('dragover');
-          });
-          
-          element.addEventListener('drop', function(e) {
-              e.preventDefault();
-              element.classList.remove('dragover');
-              
-              const files = e.dataTransfer.files;
-              if (files.length > 0) {
-                  const file = files[0];
-                  if (file.type.startsWith('image/')) {
-                      const input = element.querySelector('input[type="file"]');
-                      const dt = new DataTransfer();
-                      dt.items.add(file);
-                      input.files = dt.files;
-                      
-                      // Trigger change event
-                      input.dispatchEvent(new Event('change'));
-                  }
-              }
-          });
-      });
-      
-      function handleFileSelect(event, previewId, callback) {
-          const file = event.target.files[0];
-          if (file && file.type.startsWith('image/')) {
-              const reader = new FileReader();
-              
-              reader.onload = function(e) {
-                  const preview = document.getElementById(previewId);
-                  preview.src = e.target.result;
-                  preview.style.display = 'block';
-                  callback(e.target.result);
-              };
-              
-              reader.readAsDataURL(file);
-          }
-      }
-      
-      function applyClassroomPhoto() {
-          if (classroomPhoto) {
-              document.body.style.backgroundImage = `url(${classroomPhoto})`;
-              alert('Classroom photo applied successfully!');
-          } else {
-              alert('Please select a classroom photo first.');
-          }
-      }
-      
-      function applyKidsPhoto() {
-          if (kidsPhoto) {
-              const subjectsSection = document.getElementById('subjects');
-              subjectsSection.style.backgroundImage = `url(${kidsPhoto})`;
-              alert('Kids photo applied successfully!');
-          } else {
-              alert('Please select a kids photo first.');
-          }
-      }
-      
-      function toggleAdminPanel() {
-          const panel = document.querySelector('.admin-panel');
-          panel.classList.toggle('collapsed');
-      }
-      
-      // Close admin panel when clicking outside (on mobile)
-      document.addEventListener('click', function(event) {
-          const panel = document.querySelector('.admin-panel');
-          const toggle = document.querySelector('.toggle-admin');
-          
-          if (!panel.contains(event.target) && event.target !== toggle && window.innerWidth < 768) {
-              panel.classList.add('collapsed');
-          }
+      // Initialize feather icons
+      document.addEventListener('DOMContentLoaded', function() {
+          feather.replace();
       });
   </script>
 </body>
