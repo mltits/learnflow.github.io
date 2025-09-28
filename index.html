@@ -41,27 +41,37 @@
                 background-attachment: fixed;
             }
         }
+        
+        /* Mobile menu styles - Only for phones (max-width: 767px) */
+        @media (max-width: 767px) {
+            .mobile-menu {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+            }
+            .mobile-menu.open {
+                transform: translateX(0);
+            }
+            .menu-overlay {
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.3s ease-in-out;
+            }
+            .menu-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
     </style>
-	<!-- Standard favicon -->
-<link rel="icon" type="image/png" sizes="32x32" href="assets/images/logo.png">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/images/logo.png">
+    <!-- Standard favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/logo.png">
 
-<!-- For iOS and Android -->
-<link rel="apple-touch-icon" href="assets/images/logo.png">
+    <!-- For iOS and Android -->
+    <link rel="apple-touch-icon" href="assets/images/logo.png">
 
-<!-- For older browsers -->
-<link rel="shortcut icon" href="assets/images/logo.ico">
-
+    <!-- For older browsers -->
+    <link rel="shortcut icon" href="assets/images/logo.ico">
 </head>
-	<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-B9L0QR0K2P"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-B9L0QR0K2P');
-</script>
 <body class="font-sans antialiased text-gray-800">
     <!-- Navigation -->
     <nav class="bg-white shadow-sm sticky top-0 z-50">
@@ -84,14 +94,40 @@
                         Book Free Demo
                     </a>
                 </div>
-                <div class="-mr-2 flex items-center md:hidden">
-                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                <!-- Mobile menu button - Only shown on phones (max-width: 767px) -->
+                <div class="md:hidden -mr-2 flex items-center">
+                    <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                         <i data-feather="menu"></i>
                     </button>
                 </div>
             </div>
         </div>
     </nav>
+
+    <!-- Mobile Menu Overlay - Only for phones -->
+    <div id="menu-overlay" class="menu-overlay fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"></div>
+
+    <!-- Mobile Menu - Only for phones -->
+    <div id="mobile-menu" class="mobile-menu fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-50 md:hidden">
+        <div class="flex justify-between items-center p-4 border-b">
+            <span class="text-xl font-bold text-green-500">LearnFlow</span>
+            <button id="close-menu" class="p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100">
+                <i data-feather="x"></i>
+            </button>
+        </div>
+        <div class="p-4 space-y-4">
+            <a href="#" class="block text-green-500 font-medium py-2">Home</a>
+            <a href="#tutors" class="block text-gray-500 hover:text-green-500 font-medium py-2">Our Tutors</a>
+            <a href="#subjects" class="block text-gray-500 hover:text-green-500 font-medium py-2">Subjects</a>
+            <a href="#how-it-works" class="block text-gray-500 hover:text-green-500 font-medium py-2">How It Works</a>
+            <a href="#about-us" class="block text-gray-500 hover:text-green-500 font-medium py-2">About Us</a>
+            <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20free%20demo" 
+               target="_blank"
+               class="block bg-black text-green-500 px-4 py-2 rounded-md font-medium hover:bg-gray-900 transition duration-150 text-center">
+                Book Free Demo
+            </a>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <div class="hero-gradient text-white relative overflow-hidden">
@@ -154,63 +190,64 @@
 
     <!-- Featured Tutors Section -->
     <section id="tutors" class="py-20 bg-white">
-    <!-- Fixed image URL -->
-<img src="https://images.unsplash.com/photo-1685358279653-868c0b99fe6c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-     alt="Tutoring session" 
-     class="w-full h-48 md:h-64 lg:h-96 xl:h-[500px] object-cover rounded-lg mb-8">
-    
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Fixed image URL -->
+        <img src="https://images.unsplash.com/photo-1685358279653-868c0b99fe6c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+             alt="Tutoring session" 
+             class="w-full h-48 md:h-64 lg:h-96 xl:h-[500px] object-cover rounded-lg mb-8">
+        
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-aos="fade-up">Our TOP Tutors</h2>
-                <p class="text-xl text-purple-500 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">Highly qualified professionals dedicated to your academic success</p>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-aos="fade-up">Our TOP Tutors</h2>
+                    <p class="text-xl text-purple-500 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">Highly qualified professionals dedicated to your academic success</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Tutor 1 -->
+                    <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up">
+                        <h3 class="text-xl font-semibold text-center mb-2">Asma Siddiqua</h3>
+                        <p class="text-green-500 text-center mb-4">Chemistry & Science</p>
+                        <p class="text-gray-600 text-center mb-4">BA in Chemistry with 15+ years experience. Specializes in international boards: British curriculum, IGCSE, ICSE, CBSE.</p>
+                        <div class="text-center">
+                            <span class="text-yellow-400">★★★★★</span>
+                            <span class="text-gray-600 ml-2">4.9 (228 reviews)</span>
+                        </div>
+                    </div>
+                    <!-- Tutor 2 -->
+                    <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="100">
+                        <h3 class="text-xl font-semibold text-center mb-2">Rumaisa Nazneen</h3>
+                        <p class="text-green-500 text-center mb-4">IT and English</p>
+                        <p class="text-gray-600 text-center mb-4">English Faculty with qualifications in BCA, M.A. English Literature, and B.Ed. Combines literary expertise with technical skills.</p>
+                        <div class="text-center">
+                            <span class="text-yellow-400">★★★★★</span>
+                            <span class="text-gray-600 ml-2">4.8 (116 reviews)</span>
+                        </div>
+                    </div>
+                    <!-- Tutor 3 -->
+                    <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="text-xl font-semibold text-center mb-2">Fabiha Luiza</h3>
+                        <p class="text-green-500 text-center mb-4">Science & Biology</p>
+                        <p class="text-gray-600 text-center mb-4">Science Teacher with BHMS degree. Strong foundation in biology, chemistry, integrating medical knowledge into teaching.</p>
+                        <div class="text-center">
+                            <span class="text-yellow-400">★★★★★</span>
+                            <span class="text-gray-600 ml-2">4.9 (105 reviews)</span>
+                        </div>
+                    </div>
+                    <!-- Tutor 4 -->
+                    <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="text-xl font-semibold text-center mb-2">Syeda Nazneen</h3>
+                        <p class="text-green-500 text-center mb-4">Mathematics</p>
+                        <p class="text-gray-600 text-center mb-4">A Math Trainer with a Bachelor of Engineering (B.E) in Electronics. Brings strong analytical and problem-solving skills, applying technical expertise to deliver clear and effective mathematics training for learners at various levels</p>
+                        <div class="text-center">
+                            <span class="text-yellow-400">★★★★</span>
+                            <span class="text-gray-600 ml-2">4.1 (56 reviews)</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Tutor 1 -->
-                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up">
-                    <h3 class="text-xl font-semibold text-center mb-2">Asma Siddiqua</h3>
-                    <p class="text-green-500 text-center mb-4">Chemistry & Science</p>
-                    <p class="text-gray-600 text-center mb-4">BA in Chemistry with 15+ years experience. Specializes in international boards: British curriculum, IGCSE, ICSE, CBSE.</p>
-                    <div class="text-center">
-                        <span class="text-yellow-400">★★★★★</span>
-                        <span class="text-gray-600 ml-2">4.9 (228 reviews)</span>
-                    </div>
-                </div>
-                <!-- Tutor 2 -->
-                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="text-xl font-semibold text-center mb-2">Rumaisa Nazneen</h3>
-                    <p class="text-green-500 text-center mb-4">IT and English</p>
-                    <p class="text-gray-600 text-center mb-4">English Faculty with qualifications in BCA, M.A. English Literature, and B.Ed. Combines literary expertise with technical skills.</p>
-                    <div class="text-center">
-                        <span class="text-yellow-400">★★★★★</span>
-                        <span class="text-gray-600 ml-2">4.8 (116 reviews)</span>
-                    </div>
-                </div>
-                <!-- Tutor 3 -->
-                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="200">
-                    <h3 class="text-xl font-semibold text-center mb-2">Fabiha Luiza</h3>
-                    <p class="text-green-500 text-center mb-4">Science & Biology</p>
-                    <p class="text-gray-600 text-center mb-4">Science Teacher with BHMS degree. Strong foundation in biology, chemistry, integrating medical knowledge into teaching.</p>
-                    <div class="text-center">
-                        <span class="text-yellow-400">★★★★★</span>
-                        <span class="text-gray-600 ml-2">4.9 (105 reviews)</span>
-                    </div>
-                </div>
-				<!-- Tutor 4 -->
-                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="200">
-                    <h3 class="text-xl font-semibold text-center mb-2">Syeda Nazneen</h3>
-                    <p class="text-green-500 text-center mb-4">Mathematics</p>
-                    <p class="text-gray-600 text-center mb-4">A Math Trainer with a Bachelor of Engineering (B.E) in Electronics. Brings strong analytical and problem-solving skills, applying technical expertise to deliver clear and effective mathematics training for learners at various levels</p>
-                    <div class="text-center">
-                        <span class="text-yellow-400">★★★★</span>
-                        <span class="text-gray-600 ml-2">4.1 (56 reviews)</span>
-                    </div>
-                </div>
-            </div>
+            <img src="https://i2-prod.mirror.co.uk/article23879389.ece/ALTERNATES/s1200b/1_Back-view-of-elementary-students-raising-their-arms-on-a-class.jpg" 
+                 alt="Tutoring session" 
+                 class="w-full h-96 object-cover rounded-lg mb-8">
         </div>
-		<img src="https://i2-prod.mirror.co.uk/article23879389.ece/ALTERNATES/s1200b/1_Back-view-of-elementary-students-raising-their-arms-on-a-class.jpg" 
-     alt="Tutoring session" 
-     class="w-full h-96 object-cover rounded-lg mb-8">
     </section>
 
     <!-- How It Works Section -->
@@ -244,71 +281,71 @@
     </section>
 
    <!-- Subjects Section -->
-<section id="subjects" class="relative py-20 bg-cover bg-center text-white bg-fixed-ios bg-image-fallback"
-         style="background-image: url('assets/images/kids.webp');">
-    <!-- Dark overlay -->
-    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+    <section id="subjects" class="relative py-20 bg-cover bg-center text-white bg-fixed-ios bg-image-fallback"
+             style="background-image: url('assets/images/kids.webp');">
+        <!-- Dark overlay -->
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
 
-    <!-- Content -->
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4" data-aos="fade-up">Subjects We Cover</h2>
-            <p class="text-xl max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
-                Comprehensive tutoring across all academic disciplines
-            </p>
+        <!-- Content -->
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4" data-aos="fade-up">Subjects We Cover</h2>
+                <p class="text-xl max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                    Comprehensive tutoring across all academic disciplines
+                </p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="text-center p-6 bg-green-50 rounded-lg shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up">
+                    <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-4xl">🧮</span>
+                    </div>
+                    <h3 class="font-bold text-xl text-green-500 mb-2">Mathematics</h3>
+                </div>
+                <div class="text-center p-6 bg-green-50 rounded-lg shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-4xl">🌿</span>
+                    </div>
+                    <h3 class="font-bold text-xl text-green-500 mb-2">Science</h3>
+                </div>
+                <div class="text-center p-6 bg-green-50 rounded-lg shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-4xl">🧪</span>
+                    </div>
+                    <h3 class="font-bold text-xl text-green-500 mb-2">Chemistry</h3>
+                </div>
+                <div class="text-center p-6 bg-green-50 rounded-lg shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-4xl">🧬</span>
+                    </div>
+                    <h3 class="font-bold text-xl text-green-500 mb-2">Biology</h3>
+                </div>
+                <div class="text-center p-6 bg-green-50 rounded-lg shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-4xl">✍️</span>
+                    </div>
+                    <h3 class="font-bold text-xl text-green-500 mb-2">English</h3>
+                </div>
+                <div class="text-center p-6 bg-green-50 rounded-lg shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-4xl">🖥️</span>
+                    </div>
+                    <h3 class="font-bold text-xl text-green-500 mb-2">Computer</h3>
+                </div>
+                <div class="text-center p-6 bg-green-50 rounded-lg shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-4xl">👨‍💻️</span>
+                    </div>
+                    <h3 class="font-bold text-xl text-green-500 mb-2">coding</h3>
+                </div>
+                <div class="text-center p-6 bg-green-50 rounded-lg shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-4xl">🗣️</span>
+                    </div>
+                    <h3 class="font-bold text-xl text-green-500 mb-2">public speaking</h3>
+                </div>
+            </div>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div class="text-center p-6 bg-green-50 rounded-lg shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up">
-                <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span class="text-4xl">🧮</span>
-                </div>
-                <h3 class="font-bold text-xl text-green-500 mb-2">Mathematics</h3>
-            </div>
-            <div class="text-center p-6 bg-green-50 rounded-lg shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="100">
-                <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span class="text-4xl">🌿</span>
-                </div>
-                <h3 class="font-bold text-xl text-green-500 mb-2">Science</h3>
-            </div>
-            <div class="text-center p-6 bg-green-50 rounded-lg shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="200">
-                <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span class="text-4xl">🧪</span>
-                </div>
-                <h3 class="font-bold text-xl text-green-500 mb-2">Chemistry</h3>
-            </div>
-            <div class="text-center p-6 bg-green-50 rounded-lg shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="300">
-                <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span class="text-4xl">🧬</span>
-                </div>
-                <h3 class="font-bold text-xl text-green-500 mb-2">Biology</h3>
-            </div>
-            <div class="text-center p-6 bg-green-50 rounded-lg shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="400">
-                <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span class="text-4xl">✍️</span>
-                </div>
-                <h3 class="font-bold text-xl text-green-500 mb-2">English</h3>
-            </div>
-            <div class="text-center p-6 bg-green-50 rounded-lg shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="500">
-                <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span class="text-4xl">🖥️</span>
-                </div>
-                <h3 class="font-bold text-xl text-green-500 mb-2">Computer</h3>
-            </div>
-			<div class="text-center p-6 bg-green-50 rounded-lg shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="500">
-                <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span class="text-4xl">👨‍💻️</span>
-                </div>
-                <h3 class="font-bold text-xl text-green-500 mb-2">coding</h3>
-            </div>
-			<div class="text-center p-6 bg-green-50 rounded-lg shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="500">
-                <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span class="text-4xl">🗣️</span>
-                </div>
-                <h3 class="font-bold text-xl text-green-500 mb-2">public speaking</h3>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
     <!-- Impact Section -->
     <div class="py-16 bg-green-600 text-white">
@@ -364,8 +401,6 @@
             </div>
         </div>
     </section>
-
-    
 
     <!-- CTA Section -->
     <section class="py-20 hero-gradient text-white">
@@ -452,9 +487,56 @@
                 feather.replace();
             });
         });
+        
+        // Mobile menu functionality - Only for phones
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenuButton = document.getElementById('close-menu');
+        const menuOverlay = document.getElementById('menu-overlay');
+        
+        // Check if we're on a phone (max-width: 767px)
+        function isPhone() {
+            return window.innerWidth <= 767;
+        }
+        
+        function openMobileMenu() {
+            if (isPhone()) {
+                mobileMenu.classList.add('open');
+                menuOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        function closeMobileMenu() {
+            if (isPhone()) {
+                mobileMenu.classList.remove('open');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        if (mobileMenuButton) {
+            mobileMenuButton.addEventListener('click', openMobileMenu);
+        }
+        if (closeMenuButton) {
+            closeMenuButton.addEventListener('click', closeMobileMenu);
+        }
+        if (menuOverlay) {
+            menuOverlay.addEventListener('click', closeMobileMenu);
+        }
+        
+        // Close menu when clicking on a link
+        const mobileMenuLinks = document.querySelectorAll('#mobile-menu a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+        
+        // Close menu on window resize if we're no longer on a phone
+        window.addEventListener('resize', function() {
+            if (!isPhone()) {
+                closeMobileMenu();
+            }
+        });
     </script>
 </body>
-
 </html>
-
-
