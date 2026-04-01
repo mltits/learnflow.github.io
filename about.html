@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>LearnFlow | About Us - Our Story & Mission</title>
+    <!-- Tailwind + Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: #ecfdf5;
+        }
+        .about-page-bg {
+            background: linear-gradient(145deg, #eafaf1 0%, #d4f0e0 100%);
+        }
+        .mission-card {
+            transition: all 0.35s ease;
+        }
+        .mission-card:hover {
+            transform: translateY(-6px);
+        }
+        .value-card {
+            transition: all 0.3s ease;
+        }
+        .value-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px -12px rgba(0, 80, 40, 0.2);
+        }
+        .team-card {
+            transition: all 0.3s ease;
+        }
+        .team-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #0f8f4c, #0a6e3a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .faq-item {
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+        .faq-item:hover {
+            background-color: #f0fdf4;
+            border-left-color: #10b981;
+        }
+        /* Mobile menu styles */
+        @media (max-width: 767px) {
+            .mobile-menu {
+                transform: translateX(-100%);
+                transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            }
+            .mobile-menu.open {
+                transform: translateX(0);
+            }
+            .menu-overlay {
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.25s ease, visibility 0.25s;
+            }
+            .menu-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    </style>
+    <link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2310b981'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/%3E%3C/svg%3E">
+</head>
+<body class="antialiased text-gray-800">
+
+    <!-- ========== NAVIGATION BAR (PURE WHITE) ========== -->
+    <nav class="bg-white shadow-md sticky top-0 z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="https://www.learnflowedu.com" class="flex items-center gap-1">
+                    <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent">LearnFlow</span>
+                    <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full ml-1">About</span>
+                </a>
+                <div class="hidden md:flex md:items-center md:space-x-7">
+                    <a href="https://www.learnflowedu.com" class="text-gray-600 hover:text-green-600 font-semibold transition">Home</a>
+                    <a href="teachers.html" class="text-gray-600 hover:text-green-600 font-semibold transition">Our Teachers</a>
+                    <a href="#" class="text-green-600 font-bold border-b-2 border-green-500 pb-1">About Us</a>
+                    <a href="#" class="text-gray-600 hover:text-green-600 font-semibold transition">Contact</a>
+                    <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20free%20demo" 
+                       target="_blank"
+                       class="bg-black text-green-500 px-5 py-2.5 rounded-xl font-bold hover:bg-gray-900 transition shadow-md">
+                        Book Free Demo
+                    </a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-lg text-gray-500 hover:text-green-600 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-300">
+                        <i data-feather="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay + Panel -->
+    <div id="menu-overlay" class="menu-overlay fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden"></div>
+    <div id="mobile-menu" class="mobile-menu fixed top-0 left-0 w-72 h-full bg-white shadow-2xl z-50 md:hidden rounded-r-2xl">
+        <div class="flex justify-between items-center p-5 border-b border-gray-100">
+            <span class="text-2xl font-bold bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent">LearnFlow</span>
+            <button id="close-menu" class="p-2 rounded-full text-gray-400 hover:bg-gray-100">
+                <i data-feather="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        <div class="p-6 flex flex-col space-y-5">
+            <a href="https://www.learnflowedu.com" class="text-gray-700 font-medium text-lg hover:text-green-600 transition flex items-center gap-2"><i data-feather="home"></i> Home</a>
+            <a href="teachers.html" class="text-gray-700 font-medium text-lg hover:text-green-600 transition flex items-center gap-2"><i data-feather="users"></i> Our Teachers</a>
+            <a href="#" class="text-green-600 font-bold text-lg flex items-center gap-2"><i data-feather="heart"></i> About Us</a>
+            <a href="#" class="text-gray-700 font-medium text-lg hover:text-green-600 transition"><i data-feather="mail"></i> Contact</a>
+            <div class="pt-4">
+                <a href="https://wa.me/917414965374?text=I%20want%20to%20book%20a%20free%20demo" 
+                   target="_blank"
+                   class="block w-full text-center bg-black text-green-400 font-bold py-3 rounded-xl hover:bg-gray-800 transition">
+                    📚 Book Free Demo
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT: About Us Page with Green Theme -->
+    <div class="about-page-bg">
+        <!-- Hero Section - Solid Bright Green -->
+        <div class="bg-green-500 text-white relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative">
+                <div class="text-center max-w-3xl mx-auto" data-aos="fade-up">
+                    <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-5">Our Story: <span class="text-yellow-200">Empowering Learners Worldwide</span></h1>
+                    <p class="text-lg md:text-xl text-green-50">Since 2020, we've been on a mission to make quality education accessible, personalized, and transformational.</p>
+                    <div class="flex flex-wrap justify-center gap-6 mt-8">
+                        <div class="flex items-center gap-2 bg-white/90 px-5 py-2 rounded-full shadow-md"><i data-feather="globe" class="w-5 text-green-600"></i><span class="text-gray-700 font-medium">10+ Countries</span></div>
+                        <div class="flex items-center gap-2 bg-white/90 px-5 py-2 rounded-full shadow-md"><i data-feather="users" class="w-5 text-green-600"></i><span class="text-gray-700 font-medium">800+ Students</span></div>
+                        <div class="flex items-center gap-2 bg-white/90 px-5 py-2 rounded-full shadow-md"><i data-feather="award" class="w-5 text-green-600"></i><span class="text-gray-700 font-medium">50+ Expert Tutors</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Our Mission & Vision Section -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+            <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+                <div class="bg-white rounded-2xl p-8 shadow-lg mission-card" data-aos="fade-right">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-5">
+                        <i data-feather="target" class="w-8 h-8 text-green-600"></i>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Our Mission</h2>
+                    <p class="text-gray-600 leading-relaxed">To democratize education by connecting every learner with a dedicated mentor who inspires confidence, nurtures curiosity, and unlocks their full potential — regardless of background or location.</p>
+                    <div class="mt-6 pt-4 border-t border-gray-100">
+                        <p class="text-green-600 font-semibold">✨ Every student deserves a champion.</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl p-8 shadow-lg mission-card" data-aos="fade-left">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-5">
+                        <i data-feather="eye" class="w-8 h-8 text-green-600"></i>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Our Vision</h2>
+                    <p class="text-gray-600 leading-relaxed">A world where personalized learning is not a privilege but a standard — where technology and human connection combine to create limitless educational opportunities for all.</p>
+                    <div class="mt-6 pt-4 border-t border-gray-100">
+                        <p class="text-green-600 font-semibold">🌱 Building brighter futures, one lesson at a time.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section - Impact Numbers -->
+        <div class="bg-gradient-to-r from-green-50 to-emerald-50 py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Our Impact in Numbers</h2>
+                    <p class="text-gray-600 mt-2">Real results from real learners</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div data-aos="zoom-in"><div class="stat-number text-5xl">98%</div><p class="font-semibold mt-2">Student Satisfaction</p><span class="text-sm text-gray-500">Based on 500+ reviews</span></div>
+                    <div data-aos="zoom-in" data-aos-delay="100"><div class="stat-number text-5xl">30k+</div><p class="font-semibold mt-2">Hours Tutored</p><span class="text-sm text-gray-500">And counting</span></div>
+                    <div data-aos="zoom-in" data-aos-delay="200"><div class="stat-number text-5xl">4.9</div><p class="font-semibold mt-2">Average Rating</p><span class="text-sm text-gray-500">⭐ ⭐ ⭐ ⭐ ⭐</span></div>
+                    <div data-aos="zoom-in" data-aos-delay="300"><div class="stat-number text-5xl">87%</div><p class="font-semibold mt-2">Grade Improvement</p><span class="text-sm text-gray-500">Within 3 months</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Core Values Section -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="text-center mb-14" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800">What We Stand For</h2>
+                <p class="text-gray-600 mt-3 max-w-2xl mx-auto">Our core values shape every interaction, every lesson, and every relationship.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="value-card bg-white p-6 rounded-xl shadow-md text-center" data-aos="flip-up">
+                    <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"><i data-feather="heart" class="w-7 h-7 text-green-600"></i></div>
+                    <h3 class="text-xl font-bold mb-2">Passion</h3>
+                    <p class="text-gray-500 text-sm">We love what we do, and it shows in every session.</p>
+                </div>
+                <div class="value-card bg-white p-6 rounded-xl shadow-md text-center" data-aos="flip-up" data-aos-delay="100">
+                    <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"><i data-feather="shield" class="w-7 h-7 text-green-600"></i></div>
+                    <h3 class="text-xl font-bold mb-2">Integrity</h3>
+                    <p class="text-gray-500 text-sm">Honest feedback, transparent progress, real growth.</p>
+                </div>
+                <div class="value-card bg-white p-6 rounded-xl shadow-md text-center" data-aos="flip-up" data-aos-delay="200">
+                    <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"><i data-feather="zap" class="w-7 h-7 text-green-600"></i></div>
+                    <h3 class="text-xl font-bold mb-2">Innovation</h3>
+                    <p class="text-gray-500 text-sm">Modern tools, interactive methods, adaptive learning.</p>
+                </div>
+                <div class="value-card bg-white p-6 rounded-xl shadow-md text-center" data-aos="flip-up" data-aos-delay="300">
+                    <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"><i data-feather="users" class="w-7 h-7 text-green-600"></i></div>
+                    <h3 class="text-xl font-bold mb-2">Community</h3>
+                    <p class="text-gray-500 text-sm">A supportive network of learners, tutors, and families.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Our Journey Timeline -->
+        <div class="bg-white py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-14" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Our Journey</h2>
+                    <p class="text-gray-600 mt-2">From a small idea to a growing educational movement</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center p-6" data-aos="fade-right">
+                        <div class="w-20 h-20 bg-green-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-lg">2020</div>
+                        <h3 class="text-xl font-bold">The Beginning</h3>
+                        <p class="text-gray-500 mt-2">Founded by educators who believed in 1:1 personalized learning. Started with 5 tutors and 20 students.</p>
+                    </div>
+                    <div class="text-center p-6" data-aos="fade-up">
+                        <div class="w-20 h-20 bg-green-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-lg">2022</div>
+                        <h3 class="text-xl font-bold">Expansion</h3>
+                        <p class="text-gray-500 mt-2">Grew to 30+ expert tutors, served 300+ students across multiple countries and curricula.</p>
+                    </div>
+                    <div class="text-center p-6" data-aos="fade-left">
+                        <div class="w-20 h-20 bg-green-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-lg">2025</div>
+                        <h3 class="text-xl font-bold">Today & Beyond</h3>
+                        <p class="text-gray-500 mt-2">50+ passionate teachers, 800+ happy learners, and a vision to reach every corner of the globe.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Meet Our Leadership Team -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="text-center mb-14" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Meet the Minds Behind LearnFlow</h2>
+                <p class="text-gray-600 mt-3">Dedicated leaders committed to educational excellence</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="team-card bg-white rounded-2xl p-6 text-center shadow-md" data-aos="zoom-in">
+                    <img src="https://randomuser.me/api/portraits/women/79.jpg" class="w-32 h-32 rounded-full mx-auto object-cover border-4 border-green-200 mb-4" alt="Founder">
+                    <h3 class="text-xl font-bold">Dr. Sarah Mitchell</h3>
+                    <p class="text-green-600 font-medium">Founder & CEO</p>
+                    <p class="text-gray-500 text-sm mt-2">Former educator with 15+ years experience. PhD in Educational Psychology.</p>
+                </div>
+                <div class="team-card bg-white rounded-2xl p-6 text-center shadow-md" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="https://randomuser.me/api/portraits/men/45.jpg" class="w-32 h-32 rounded-full mx-auto object-cover border-4 border-green-200 mb-4" alt="Academic Director">
+                    <h3 class="text-xl font-bold">Prof. James Carter</h3>
+                    <p class="text-green-600 font-medium">Academic Director</p>
+                    <p class="text-gray-500 text-sm mt-2">Curriculum specialist, STEM education advocate, and mentor to 1000+ teachers.</p>
+                </div>
+                <div class="team-card bg-white rounded-2xl p-6 text-center shadow-md" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-32 h-32 rounded-full mx-auto object-cover border-4 border-green-200 mb-4" alt="Community Lead">
+                    <h3 class="text-xl font-bold">Priya Sharma</h3>
+                    <p class="text-green-600 font-medium">Community & Outreach</p>
+                    <p class="text-gray-500 text-sm mt-2">Building bridges between learners, tutors, and families worldwide.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- About LearnFlow + Testimonial Section (Integrated) -->
+        <div id="about-us" class="py-16 bg-[#d4f0e3]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="md:flex gap-12 items-center">
+                    <div class="md:w-1/2 mb-8 md:mb-0" data-aos="fade-right">
+                        <h2 class="text-3xl font-bold text-gray-800">🌟 About LearnFlow</h2>
+                        <div class="w-20 h-1 bg-green-600 my-4"></div>
+                        <p class="text-gray-700 leading-relaxed">Founded by educators who believe that every learner deserves a personal mentor. Our platform connects students with the finest tutors, delivering result-driven education. All sessions are recorded, progress reports shared, and learning paths customized.</p>
+                        <div class="mt-6 flex gap-3"><i data-feather="award" class="text-green-700"></i><span>100% satisfaction guarantee</span></div>
+                        <div class="flex gap-3 mt-2"><i data-feather="clock" class="text-green-700"></i><span>Flexible timing 24/7 support</span></div>
+                    </div>
+                    <div class="md:w-1/2 bg-white p-8 rounded-2xl shadow-xl" data-aos="fade-left">
+                        <i data-feather="message-circle" class="w-10 h-10 text-green-500 mb-3"></i>
+                        <p class="italic text-gray-600 text-lg">“The tutors are incredibly patient and adaptive. My son's grades improved from C to A in just 3 months. Highly recommended!”</p>
+                        <div class="flex items-center mt-5 gap-3"><img src="https://randomuser.me/api/portraits/men/21.jpg" class="w-12 h-12 rounded-full"><div><p class="font-bold">— Ramesh K.</p><p class="text-sm text-green-600">Parent of Grade 10 student</p></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section (Green-tinted) -->
+        <div class="py-16 max-w-5xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-10 text-gray-800">❓ Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <div class="faq-item bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition"><h3 class="font-bold text-green-800">How do I book a free demo?</h3><p class="text-gray-600 mt-1">Simply click “Book Free Demo” on the navbar or hero section. You'll connect via WhatsApp to schedule your session.</p></div>
+                <div class="faq-item bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition"><h3 class="font-bold text-green-800">Are the tutors certified?</h3><p class="text-gray-600">Yes! Every tutor undergoes a rigorous screening, background check, and teaching demonstration.</p></div>
+                <div class="faq-item bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition"><h3 class="font-bold text-green-800">What subjects do you cover?</h3><p class="text-gray-600">Math, Physics, Chemistry, Biology, English, Programming, History, and more. K-12 and college prep.</p></div>
+                <div class="faq-item bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition"><h3 class="font-bold text-green-800">How do I become a tutor?</h3><p class="text-gray-600">Reach out via WhatsApp or email us with your qualifications. We'll guide you through the application process.</p></div>
+            </div>
+        </div>
+
+        <!-- Join Our Mission CTA -->
+        <div class="py-16 px-4">
+            <div class="max-w-5xl mx-auto bg-green-500 rounded-3xl shadow-2xl overflow-hidden md:flex">
+                <div class="md:w-1/2 p-10 text-white">
+                    <i data-feather="heart" class="w-12 h-12 mb-4"></i>
+                    <h3 class="text-2xl md:text-3xl font-bold">Join Our Mission</h3>
+                    <p class="mt-3 opacity-90">Whether you're a student seeking guidance or a teacher wanting to make an impact — we're here for you.</p>
+                    <div class="flex flex-wrap gap-4 mt-6">
+                        <a href="https://wa.me/917414965374?text=I%20want%20to%20learn%20with%20LearnFlow" target="_blank" class="bg-white text-green-600 font-bold px-6 py-2 rounded-xl hover:bg-gray-100 transition">Become a Student →</a>
+                        <a href="https://wa.me/917414965374?text=I%20want%20to%20teach%20with%20LearnFlow" target="_blank" class="bg-black text-white font-bold px-6 py-2 rounded-xl hover:bg-gray-800 transition">Become a Tutor →</a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 bg-green-600 p-10 flex items-center justify-center">
+                    <div class="text-center text-white">
+                        <p class="text-4xl font-bold">"Education is the most powerful weapon which you can use to change the world."</p>
+                        <p class="mt-3 font-semibold">— Nelson Mandela</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-gray-300 py-10 mt-4">
+            <div class="max-w-7xl mx-auto px-4 text-center">
+                <span class="text-green-400 font-bold text-xl">LearnFlow — About Us</span>
+                <p class="text-sm mt-2">© 2025 LearnFlow. Empowering education, one learner at a time.</p>
+                <div class="flex justify-center gap-6 mt-4 text-sm">
+                    <a href="https://www.learnflowedu.com" class="hover:text-green-400">Home</a>
+                    <a href="teachers.html" class="hover:text-green-400">Our Teachers</a>
+                    <a href="#" class="hover:text-green-400">Privacy Policy</a>
+                    <a href="https://wa.me/917414965374" target="_blank" class="hover:text-green-400">Contact Us</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        feather.replace();
+        AOS.init({ once: true, duration: 700, offset: 20 });
+
+        // Mobile menu interactions
+        const menuBtn = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const overlayDiv = document.getElementById('menu-overlay');
+        const closeMenuBtn = document.getElementById('close-menu');
+        function closeMobile() {
+            if (mobileMenu) mobileMenu.classList.remove('open');
+            if (overlayDiv) overlayDiv.classList.remove('active');
+        }
+        function openMobile() {
+            if (mobileMenu) mobileMenu.classList.add('open');
+            if (overlayDiv) overlayDiv.classList.add('active');
+        }
+        if (menuBtn) menuBtn.addEventListener('click', openMobile);
+        if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMobile);
+        if (overlayDiv) overlayDiv.addEventListener('click', closeMobile);
+        document.querySelectorAll('#mobile-menu a').forEach(link => link.addEventListener('click', closeMobile));
+        
+        // Smooth scroll for any internal anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = this.getAttribute('href');
+                if (target && target !== "#") {
+                    const elem = document.querySelector(target);
+                    if (elem) {
+                        e.preventDefault();
+                        elem.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
