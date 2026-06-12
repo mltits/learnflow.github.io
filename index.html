@@ -224,7 +224,6 @@
     </div>
 
     <!-- Featured Tutors Section -->
-    <!-- Fixed image URL -->
     <img src="https://images.unsplash.com/photo-1685358279653-868c0b99fe6c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
          alt="Tutoring session" 
          class="w-full h-48 md:h-64 lg:h-96 xl:h-[500px] object-cover rounded-lg mb-8">
@@ -653,7 +652,7 @@
         });
     </script>
 
-    <!-- ========== TELEGRAM EMAIL POPUP - ADDED RIGHT BEFORE </body> ========== -->
+    <!-- ========== EMAIL POPUP WITH SIMPLE 7-MINUTE TIMER ========== -->
     <style>
         .lf-email-overlay {
             position: fixed;
@@ -779,14 +778,9 @@
 
     <script>
     // ========== 🔴 REPLACE THESE WITH YOUR ACTUAL TELEGRAM BOT DETAILS ==========
-    const TELEGRAM_BOT_TOKEN = '8971031518:AAGQAw0j1wJ3yHnPEWk4xCR8OJTMbMa4cKc';  // ← PASTE YOUR BOT TOKEN (e.g., '7234567890:ABCdefGHIjklmNOPqrstUVwxyz')
-    const TELEGRAM_CHAT_ID = '5007336069';      // ← PASTE YOUR CHAT ID (e.g., '123456789')
+    const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE';  // ← PASTE YOUR BOT TOKEN
+    const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID_HERE';      // ← PASTE YOUR CHAT ID
     // ===========================================================================
-
-    // Check if values are set
-    if (TELEGRAM_BOT_TOKEN === '8971031518:AAGQAw0j1wJ3yHnPEWk4xCR8OJTMbMa4cKc' || TELEGRAM_CHAT_ID === '5007336069') {
-        console.error('⚠️ Please set your TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID in the code!');
-    }
 
     const TRIGGER_DELAY_MS = 7 * 60 * 1000; // 7 minutes
 
@@ -797,47 +791,28 @@
     const emailInput = document.getElementById('lfVisitorEmail');
     const toastEl = document.getElementById('lfToastMessage');
 
-    let isActive = false;
-    let activeSeconds = 0;
-    let intervalId = null;
-    let isPageActive = true;
-    let lastInteractionTime = Date.now();
+    let popupShownThisSession = false;
 
     function showToast(message, duration = 3000) {
         if (!toastEl) return;
         toastEl.textContent = message;
         toastEl.style.opacity = '1';
-        setTimeout(() => {
-            toastEl.style.opacity = '0';
-        }, duration);
+        setTimeout(() => toastEl.style.opacity = '0', duration);
     }
 
     async function sendToTelegram(email) {
-        const message = `📧 *NEW EMAIL SUBSCRIBER!*\n\n✉️ Email: \`${email}\`\n🌐 Source: LearnFlow Website\n⏰ Time: ${new Date().toLocaleString()}\n\n🎯 Send them learning resources!`;
-        
-        const url = `https://api.telegram.org/bot${8971031518:AAGQAw0j1wJ3yHnPEWk4xCR8OJTMbMa4cKc}/sendMessage`;
-        
+        const message = `📧 *NEW EMAIL SUBSCRIBER!*\n\n✉️ Email: \`${email}\`\n🌐 Source: LearnFlow Website\n⏰ Time: ${new Date().toLocaleString()}`;
+        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
         try {
             const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: 5007336069,
-                    text: message,
-                    parse_mode: 'Markdown',
-                    disable_web_page_preview: true
-                })
+                body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: message, parse_mode: 'Markdown' })
             });
             const data = await response.json();
-            if (data.ok) {
-                console.log('✅ Telegram notification sent!');
-                return true;
-            } else {
-                console.error('❌ Telegram error:', data);
-                return false;
-            }
+            return data.ok;
         } catch (error) {
-            console.error('❌ Failed to send to Telegram:', error);
+            console.error(error);
             return false;
         }
     }
@@ -864,13 +839,8 @@
         localStorage.removeItem('learnflow_remind_later_timestamp');
         
         showToast("📨 Sending...", 1500);
-        const telegramSent = await sendToTelegram(email);
-        
-        if (telegramSent) {
-            showToast("✅ Subscribed! Check your Telegram!", 3500);
-        } else {
-            showToast("✅ Email saved! (Telegram check your bot setup)", 3500);
-        }
+        await sendToTelegram(email);
+        showToast("✅ Subscribed! Check your Telegram!", 3500);
         
         const successDiv = document.createElement('div');
         successDiv.className = 'lf-success-message';
@@ -881,19 +851,18 @@
             setTimeout(() => successDiv.remove(), 4000);
         }
         
-        setTimeout(() => { closePopup(true); }, 1500);
+        setTimeout(() => closePopup(), 1500);
         return true;
     }
 
-    function closePopup(resetTimer = false) {
+    function closePopup() {
         if (overlay) overlay.classList.remove('active');
-        isActive = false;
     }
 
     function setRemindLater(hours = 24) {
         const remindUntil = Date.now() + (hours * 60 * 60 * 1000);
         localStorage.setItem('learnflow_remind_later_timestamp', remindUntil.toString());
-        closePopup(true);
+        closePopup();
         showToast("⏰ We'll remind you tomorrow! Stay tuned.", 2500);
     }
 
@@ -907,72 +876,30 @@
         return false;
     }
 
-    function showPopupIfEligible() {
+    function showPopup() {
         if (isPopupBlocked()) return;
-        if (isActive) return;
+        if (popupShownThisSession) return;
         if (overlay) {
             overlay.classList.add('active');
-            isActive = true;
-            sessionStorage.setItem('lf_popup_shown_session', 'true');
+            popupShownThisSession = true;
         }
     }
 
-    function updateActiveTimer() {
-        if (!isPageActive) return;
-        const now = Date.now();
-        const elapsed = (now - lastInteractionTime) / 1000;
-        if (elapsed > 0 && elapsed < 30) {
-            activeSeconds += elapsed;
-        }
-        lastInteractionTime = now;
-        if (activeSeconds >= 420) {
-            if (!isPopupBlocked() && sessionStorage.getItem('lf_popup_shown_session') !== 'true') {
-                showPopupIfEligible();
-                if (intervalId) clearInterval(intervalId);
-                intervalId = null;
-            }
-        }
-    }
+    // ========== SIMPLE 7-MINUTE TIMER ==========
+    console.log('⏰ Timer started! Popup will appear in 7 minutes');
+    
+    setTimeout(() => {
+        console.log('7 minutes completed! Showing popup...');
+        showPopup();
+    }, TRIGGER_DELAY_MS);
+    // ===========================================
 
-    function resetIdleTimer() {
-        if (!isPageActive) return;
-        if (intervalId) updateActiveTimer();
-        lastInteractionTime = Date.now();
-    }
-
-    const events = ['mousemove', 'click', 'scroll', 'keydown', 'touchstart'];
-    events.forEach(ev => window.addEventListener(ev, resetIdleTimer, { passive: true }));
-
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-            isPageActive = false;
-            if (intervalId) updateActiveTimer();
-        } else {
-            isPageActive = true;
-            lastInteractionTime = Date.now();
-            if (intervalId === null && activeSeconds < 420 && !isPopupBlocked() && sessionStorage.getItem('lf_popup_shown_session') !== 'true') {
-                startActiveInterval();
-            }
-        }
-    });
-
-    function startActiveInterval() {
-        if (intervalId) clearInterval(intervalId);
-        lastInteractionTime = Date.now();
-        intervalId = setInterval(() => {
-            if (isPageActive) updateActiveTimer();
-        }, 1000);
-    }
-
-    if (!isPopupBlocked() && sessionStorage.getItem('lf_popup_shown_session') !== 'true') {
-        startActiveInterval();
-    }
-
+    // Button event listeners
     if (closeBtn) {
         closeBtn.addEventListener('click', () => {
             const expiry = Date.now() + (7 * 24 * 60 * 60 * 1000);
             localStorage.setItem('learnflow_email_popup_dismissed', expiry.toString());
-            closePopup(true);
+            closePopup();
             showToast("Popup dismissed for 7 days.", 2000);
         });
     }
@@ -1002,29 +929,26 @@
 
     if (overlay) {
         overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) {
-                closePopup(true);
-            }
+            if (e.target === overlay) closePopup();
         });
     }
 
+    // Press "E" three times to test popup instantly
     let eCount = 0;
     document.addEventListener('keydown', (e) => {
         if (e.key === 'e' || e.key === 'E') {
             eCount++;
             setTimeout(() => eCount = 0, 1000);
             if (eCount >= 3) {
-                const emails = JSON.parse(localStorage.getItem('learnflow_collected_emails') || '[]');
-                alert(`📧 Collected Emails (${emails.length}):\n\n${emails.join('\n') || 'No emails yet'}\n\nPress OK to close`);
+                showPopup();
                 eCount = 0;
             }
         }
     });
 
-    console.log('✅ Email popup ready!');
-    console.log('📱 Telegram bot will notify you when users subscribe.');
+    console.log('✅ Email popup ready! Press "E" three times to test instantly');
     </script>
-    <!-- ========== END OF TELEGRAM EMAIL POPUP ========== -->
+    <!-- ========== END OF EMAIL POPUP ========== -->
 
 </body>
 </html>
