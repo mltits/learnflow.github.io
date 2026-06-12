@@ -782,7 +782,7 @@
     const TELEGRAM_CHAT_ID = '5007336069';      // ← PASTE YOUR CHAT ID
     // ===========================================================================
 
-    const TRIGGER_DELAY_MS = 7 * 60 * 1000; // 7 minutes
+    const TRIGGER_DELAY_MS = 1 * 60 * 1000; // 7 minutes
 
     const overlay = document.getElementById('lfEmailPopup');
     const closeBtn = document.getElementById('lfClosePopupBtn');
@@ -897,7 +897,7 @@
     // Button event listeners
     if (closeBtn) {
         closeBtn.addEventListener('click', () => {
-            const expiry = Date.now() + (7 * 24 * 60 * 60 * 1000);
+            const expiry = Date.now() + (0.5 * 24 * 60 * 60 * 1000);
             localStorage.setItem('learnflow_email_popup_dismissed', expiry.toString());
             closePopup();
             showToast("Popup dismissed for 7 days.", 2000);
