@@ -1,1 +1,4 @@
+User-agent: GPTBot
+Allow: /
 
+Sitemap: https://learnflowedu.com/sitemap.xml
