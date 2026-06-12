@@ -652,7 +652,7 @@
         });
     </script>
 
-    <!-- ========== EMAIL POPUP - FIXED FOR PHONE + REFRESH ========== -->
+    <!-- ========== EMAIL POPUP - WORKING VERSION ========== -->
     <style>
         .lf-email-overlay {
             position: fixed;
@@ -756,7 +756,6 @@
             opacity: 0;
             transition: opacity 0.2s;
         }
-        /* Better touch targets for mobile */
         @media (max-width: 768px) {
             .lf-popup-card {
                 padding: 1.5rem;
@@ -791,174 +790,163 @@
     <div id="lfToastMessage" class="lf-toast-message"></div>
 
     <script>
-<script>
-// ========== 🔴 REPLACE WITH YOUR TELEGRAM BOT DETAILS ==========
-const TELEGRAM_BOT_TOKEN = '8971031518:AAGQAw0j1wJ3yHnPEWk4xCR8OJTMbMa4cKc';
-const TELEGRAM_CHAT_IDS = [
-    '6892521123',
-    '5007336069'
-];
-// ================================================================
+    // ========== YOUR TELEGRAM BOT DETAILS (ALREADY FILLED) ==========
+    const TELEGRAM_BOT_TOKEN = '8971031518:AAGQAw0j1wJ3yHnPEWk4xCR8OJTMbMa4cKc';
+    const TELEGRAM_CHAT_IDS = ['6892521123', '5007336069'];
+    // =================================================================
 
-const TRIGGER_DELAY_MS = 1 * 60 * 1000; // 1 MINUTE only!
-let popupTimer = null;
-let popupVisible = false;
+    const TRIGGER_DELAY_MS = 1 * 60 * 1000; // 1 MINUTE
+    let popupTimer = null;
+    let popupVisible = false;
 
-const overlay = document.getElementById('lfEmailPopup');
-const closeBtn = document.getElementById('lfClosePopupBtn');
-const submitBtn = document.getElementById('lfSubmitEmailBtn');
-const remindLaterBtn = document.getElementById('lfRemindLaterBtn');
-const emailInput = document.getElementById('lfVisitorEmail');
-const toastEl = document.getElementById('lfToastMessage');
+    const overlay = document.getElementById('lfEmailPopup');
+    const closeBtn = document.getElementById('lfClosePopupBtn');
+    const submitBtn = document.getElementById('lfSubmitEmailBtn');
+    const remindLaterBtn = document.getElementById('lfRemindLaterBtn');
+    const emailInput = document.getElementById('lfVisitorEmail');
+    const toastEl = document.getElementById('lfToastMessage');
 
-function showToast(message, duration = 3000) {
-    if (!toastEl) return;
-    toastEl.textContent = message;
-    toastEl.style.opacity = '1';
-    setTimeout(() => toastEl.style.opacity = '0', duration);
-}
-
-async function sendToTelegram(email) {
-    const message = `📧 *NEW EMAIL SUBSCRIBER!*\n\n✉️ Email: \`${email}\`\n🌐 LearnFlow.com\n⏰ ${new Date().toLocaleString()}`;
-    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-    
-    const results = await Promise.all(
-        TELEGRAM_CHAT_IDS.map(async (chatId) => {
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'Markdown' })
-                });
-                return await response.json();
-            } catch (error) {
-                return null;
-            }
-        })
-    );
-    return results.some(r => r && r.ok);
-}
-
-async function saveEmail(email) {
-    if (!email || !email.includes('@')) {
-        showToast("❌ Please enter a valid email address.", 3000);
-        return false;
+    function showToast(message, duration = 3000) {
+        if (!toastEl) return;
+        toastEl.textContent = message;
+        toastEl.style.opacity = '1';
+        setTimeout(() => toastEl.style.opacity = '0', duration);
     }
-    
-    // Store email locally (optional - for your records)
-    let emailsList = [];
-    const existing = localStorage.getItem('learnflow_collected_emails');
-    if (existing) {
-        try { emailsList = JSON.parse(existing); } catch(e) { emailsList = []; }
-    }
-    
-    if (!emailsList.includes(email)) {
-        emailsList.push(email);
-        localStorage.setItem('learnflow_collected_emails', JSON.stringify(emailsList));
-    }
-    
-    showToast("📨 Sending...", 1500);
-    await sendToTelegram(email);
-    showToast("✅ Subscribed! Check Telegram!", 3500);
-    
-    const successDiv = document.createElement('div');
-    successDiv.className = 'lf-success-message';
-    successDiv.innerHTML = '🎉 Thanks for subscribing!';
-    const inputGroup = document.querySelector('.lf-email-input-group');
-    if (inputGroup) {
-        inputGroup.insertAdjacentElement('afterend', successDiv);
-        setTimeout(() => successDiv.remove(), 4000);
-    }
-    
-    setTimeout(() => closePopup(), 1500);
-    return true;
-}
 
-function closePopup() {
-    if (overlay) overlay.classList.remove('active');
-    popupVisible = false;
-    // Restart timer after popup closes
+    async function sendToTelegram(email) {
+        const message = `📧 *NEW EMAIL SUBSCRIBER!*\n\n✉️ Email: \`${email}\`\n🌐 LearnFlow.com\n⏰ ${new Date().toLocaleString()}`;
+        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+        
+        const results = await Promise.all(
+            TELEGRAM_CHAT_IDS.map(async (chatId) => {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'Markdown' })
+                    });
+                    return await response.json();
+                } catch (error) {
+                    return null;
+                }
+            })
+        );
+        return results.some(r => r && r.ok);
+    }
+
+    async function saveEmail(email) {
+        if (!email || !email.includes('@')) {
+            showToast("❌ Please enter a valid email address.", 3000);
+            return false;
+        }
+        
+        let emailsList = [];
+        const existing = localStorage.getItem('learnflow_collected_emails');
+        if (existing) {
+            try { emailsList = JSON.parse(existing); } catch(e) { emailsList = []; }
+        }
+        
+        if (!emailsList.includes(email)) {
+            emailsList.push(email);
+            localStorage.setItem('learnflow_collected_emails', JSON.stringify(emailsList));
+        }
+        
+        showToast("📨 Sending...", 1500);
+        await sendToTelegram(email);
+        showToast("✅ Subscribed! Check Telegram!", 3500);
+        
+        const successDiv = document.createElement('div');
+        successDiv.className = 'lf-success-message';
+        successDiv.innerHTML = '🎉 Thanks for subscribing!';
+        const inputGroup = document.querySelector('.lf-email-input-group');
+        if (inputGroup) {
+            inputGroup.insertAdjacentElement('afterend', successDiv);
+            setTimeout(() => successDiv.remove(), 4000);
+        }
+        
+        setTimeout(() => closePopup(), 1500);
+        return true;
+    }
+
+    function closePopup() {
+        if (overlay) overlay.classList.remove('active');
+        popupVisible = false;
+        startTimer();
+    }
+
+    function showPopup() {
+        if (popupVisible) return;
+        if (overlay) {
+            overlay.classList.add('active');
+            popupVisible = true;
+        }
+    }
+
+    function startTimer() {
+        if (popupTimer) clearTimeout(popupTimer);
+        popupTimer = setTimeout(() => {
+            console.log('1 minute completed! Showing popup...');
+            showPopup();
+        }, TRIGGER_DELAY_MS);
+    }
+
     startTimer();
-}
 
-function showPopup() {
-    if (popupVisible) return;
-    if (overlay) {
-        overlay.classList.add('active');
-        popupVisible = true;
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            closePopup();
+            showToast("Popup closed. Will appear again in 1 minute.", 2000);
+        });
     }
-}
 
-function startTimer() {
-    if (popupTimer) clearTimeout(popupTimer);
-    popupTimer = setTimeout(() => {
-        console.log('1 minute completed! Showing popup...');
-        showPopup();
-    }, TRIGGER_DELAY_MS);
-}
+    if (remindLaterBtn) {
+        remindLaterBtn.addEventListener('click', () => {
+            closePopup();
+            showToast("⏰ Popup will appear again in 1 minute.", 2000);
+        });
+    }
 
-// Start timer on page load
-startTimer();
-
-// Button event listeners
-if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-        closePopup();
-        showToast("Popup closed. Will appear again in 1 minute.", 2000);
-    });
-}
-
-if (remindLaterBtn) {
-    remindLaterBtn.addEventListener('click', () => {
-        closePopup();
-        showToast("⏰ Popup will appear again in 1 minute.", 2000);
-    });
-}
-
-if (submitBtn) {
-    submitBtn.addEventListener('click', () => {
-        const email = emailInput.value.trim();
-        saveEmail(email);
-        emailInput.value = '';
-    });
-}
-
-if (emailInput) {
-    emailInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
+    if (submitBtn) {
+        submitBtn.addEventListener('click', () => {
             const email = emailInput.value.trim();
             saveEmail(email);
             emailInput.value = '';
-        }
-    });
-}
-
-if (overlay) {
-    overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) closePopup();
-    });
-}
-
-// Press "E" three times to test instantly
-let eCount = 0;
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'e' || e.key === 'E') {
-        eCount++;
-        setTimeout(() => eCount = 0, 1000);
-        if (eCount >= 3) {
-            showPopup();
-            eCount = 0;
-        }
+        });
     }
-});
 
-console.log('✅ Email popup ready! Popup appears every 1 minute');
-console.log(`📱 Sending to ${TELEGRAM_CHAT_IDS.length} Telegram accounts`);
-</script>
+    if (emailInput) {
+        emailInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const email = emailInput.value.trim();
+                saveEmail(email);
+                emailInput.value = '';
+            }
+        });
+    }
+
+    if (overlay) {
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) closePopup();
+        });
+    }
+
+    let eCount = 0;
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'e' || e.key === 'E') {
+            eCount++;
+            setTimeout(() => eCount = 0, 1000);
+            if (eCount >= 3) {
+                showPopup();
+                eCount = 0;
+            }
+        }
+    });
+
+    console.log('✅ Email popup ready! Popup appears every 1 minute');
+    console.log('📱 Sending to 2 Telegram accounts');
+    </script>
     <!-- ========== END OF EMAIL POPUP ========== -->
-    </body>
-</html>
 
 </body>
 </html>
