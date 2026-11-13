@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnFlow | Login & Signup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Supabase JS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-emerald-50 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+        <div class="text-center mb-6">
+            <h1 class="text-2xl font-extrabold text-green-600">LearnFlow Portal</h1>
+            <p class="text-gray-500 text-sm">Log in to book your classes</p>
+        </div>
+
+        <div id="error-msg" class="hidden mb-4 p-3 bg-red-100 text-red-700 text-sm rounded-lg"></div>
+        <div id="success-msg" class="hidden mb-4 p-3 bg-green-100 text-green-700 text-sm rounded-lg"></div>
+
+        <form id="auth-form" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Email Address</label>
+                <input type="email" id="email" required class="w-full mt-1 p-3 border rounded-xl focus:ring-2 focus:ring-green-500 outline-none">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Password</label>
+                <input type="password" id="password" required class="w-full mt-1 p-3 border rounded-xl focus:ring-2 focus:ring-green-500 outline-none">
+            </div>
+            <button type="submit" id="submit-btn" class="w-full bg-green-600 text-white font-bold py-3 rounded-xl hover:bg-green-700 transition">
+                Log In
+            </button>
+        </form>
+
+        <div class="mt-4 text-center">
+            <button id="toggle-mode" class="text-sm text-green-600 hover:underline">Don't have an account? Sign up</button>
+        </div>
+        <div class="mt-6 text-center">
+            <a href="index.html" class="text-xs text-gray-500 hover:text-gray-800">← Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        // REPLACE THESE WITH YOUR ACTUAL SUPABASE CREDENTIALS
+        const SUPABASE_URL = 'YOUR_SUPABASE_PROJECT_URL';
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let isSignUp = false;
+        const form = document.getElementById('auth-form');
+        const toggleBtn = document.getElementById('toggle-mode');
+        const submitBtn = document.getElementById('submit-btn');
+        const errorMsg = document.getElementById('error-msg');
+        const successMsg = document.getElementById('success-msg');
+
+        toggleBtn.addEventListener('click', () => {
+            isSignUp = !isSignUp;
+            submitBtn.textContent = isSignUp ? 'Sign Up' : 'Log In';
+            toggleBtn.textContent = isSignUp ? 'Already have an account? Log in' : "Don't have an account? Sign up";
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errorMsg.classList.add('hidden');
+            successMsg.classList.add('hidden');
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (isSignUp) {
+                const { data, error } = await supabase.auth.signUp({ email, password });
+                if (error) {
+                    errorMsg.textContent = error.message;
+                    errorMsg.classList.remove('hidden');
+                } else {
+                    successMsg.textContent = 'Sign up successful! Check your email for confirmation or log in.';
+                    successMsg.classList.remove('hidden');
+                }
+            } else {
+                const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+                if (error) {
+                    errorMsg.textContent = error.message;
+                    errorMsg.classList.remove('hidden');
+                } else {
+                    // Save user session and redirect to booking page
+                    window.location.href = 'booking.html';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
