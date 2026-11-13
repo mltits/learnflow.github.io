@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnFlow | Book a Class</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <nav class="bg-white shadow-sm p-4 flex justify-between items-center max-w-4xl mx-auto rounded-xl mt-4">
+        <span class="text-xl font-bold text-green-600">LearnFlow Booking</span>
+        <button id="logout-btn" class="text-sm text-red-600 hover:underline">Log Out</button>
+    </nav>
+
+    <div class="max-w-xl mx-auto bg-white p-8 rounded-2xl shadow-md mt-10">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">Schedule Your 1:1 Class</h1>
+        
+        <div id="alert-box" class="hidden mb-4 p-3 rounded-lg text-sm"></div>
+
+        <form id="booking-form" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Select Subject</label>
+                <select id="subject" required class="w-full mt-1 p-3 border rounded-xl outline-none focus:ring-2 focus:ring-green-500">
+                    <option value="">Choose a subject...</option>
+                    <option value="Mathematics">Mathematics (Syeda Nazneen)</option>
+                    <option value="Chemistry & Science">Chemistry & Science (Asma Siddiqua)</option>
+                    <option value="IT and English">IT and English (Rumaisa Nazneen)</option>
+                    <option value="Science & Biology">Science & Biology (Dr. Fabiha Luiza)</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Select Teacher</label>
+                <select id="teacher" required class="w-full mt-1 p-3 border rounded-xl outline-none focus:ring-2 focus:ring-green-500">
+                    <option value="">Choose a teacher...</option>
+                    <option value="Asma Siddiqua">Asma Siddiqua</option>
+                    <option value="Rumaisa Nazneen">Rumaisa Nazneen</option>
+                    <option value="Dr. Fabiha Luiza">Dr. Fabiha Luiza</option>
+                    <option value="Syeda Nazneen">Syeda Nazneen</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Date & Time</label>
+                <input type="datetime-local" id="booking-date" required class="w-full mt-1 p-3 border rounded-xl outline-none focus:ring-2 focus:ring-green-500">
+            </div>
+
+            <button type="submit" class="w-full bg-green-600 text-white font-bold py-3 rounded-xl hover:bg-green-700 transition">
+                Confirm Booking
+            </button>
+        </form>
+    </div>
+
+    <script>
+        const SUPABASE_URL = 'YOUR_SUPABASE_PROJECT_URL';
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let currentUser = null;
+
+        async function checkUser() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) {
+                window.location.href = 'login.html'; // Redirect to login if not authenticated
+            } else {
+                currentUser = session.user;
+            }
+        }
+        checkUser();
+
+        document.getElementById('logout-btn').addEventListener('click', async () => {
+            await supabase.auth.signOut();
+            window.location.href = 'login.html';
+        });
+
+        const form = document.getElementById('booking-form');
+        const alertBox = document.getElementById('alert-box');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const subject = document.getElementById('subject').value;
+            const teacher = document.getElementById('teacher').value;
+            const bookingDate = document.getElementById('booking-date').value;
+
+            const { data, error } = await supabase.from('bookings').insert([
+                { 
+                    user_email: currentUser.email, 
+                    subject: subject, 
+                    teacher_name: teacher, 
+                    booking_date: bookingDate 
+                }
+            ]);
+
+            alertBox.classList.remove('hidden');
+            if (error) {
+                alertBox.className = 'mb-4 p-3 rounded-lg text-sm bg-red-100 text-red-700';
+                alertBox.textContent = 'Error booking class: ' + error.message;
+            } else {
+                alertBox.className = 'mb-4 p-3 rounded-lg text-sm bg-green-100 text-green-700';
+                alertBox.textContent = 'Success! Your class has been booked.';
+                form.reset();
+            }
+        });
+    </script>
+</body>
+</html>
