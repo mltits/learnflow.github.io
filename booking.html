@@ -9,23 +9,75 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; font-size: 16px; }
+        @media (max-width: 767px) {
+            .mobile-menu { transform: translateX(-100%); transition: transform 0.3s ease-in-out; }
+            .mobile-menu.open { transform: translateX(0); }
+            .menu-overlay { opacity: 0; visibility: hidden; transition: opacity 0.3s ease-in-out; }
+            .menu-overlay.active { opacity: 1; visibility: visible; }
+        }
     </style>
 </head>
 <body class="bg-emerald-50 min-h-screen antialiased text-gray-800">
     <!-- Navigation -->
     <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between h-16 items-center">
-            <a href="index.html" class="flex items-center gap-2">
-                <span class="text-2xl font-extrabold bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent">LearnFlow</span>
-                <span class="text-xs bg-green-100 text-green-700 px-2.5 py-0.5 rounded-full font-semibold">Booking</span>
-            </a>
-            <div class="flex items-center space-x-5">
-                <a href="index.html" class="text-sm font-semibold text-gray-600 hover:text-green-600 transition">← Back to Home</a>
-                <a href="my-bookings.html" class="text-sm font-semibold text-green-600 hover:underline">My Bookings</a>
-                <button id="logout-btn" class="text-sm font-semibold text-red-600 hover:underline">Log Out</button>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="index.html" class="flex items-center">
+                    <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent">LearnFlow</span>
+                </a>
+                <div class="hidden md:flex md:items-center md:space-x-6">
+                    <a href="index.html" class="text-gray-600 hover:text-green-600 font-semibold transition">Home</a>
+                    <a href="teachers.html" class="text-gray-600 hover:text-green-600 font-semibold transition">Our Teachers</a>
+                    <a href="index.html#subjects" class="text-gray-600 hover:text-green-600 font-semibold transition">Subjects</a>
+                    <a href="index.html#how-it-works" class="text-gray-600 hover:text-green-600 font-semibold transition">How It Works</a>
+                    <a href="about.html" class="text-gray-600 hover:text-green-600 font-semibold transition">About Us</a>
+                    <a href="my-bookings.html" class="text-gray-600 hover:text-green-600 font-semibold transition">My Bookings</a>
+                    
+                    <div id="auth-nav-item">
+                        <a href="login.html" id="login-link" class="border border-green-500 text-green-600 px-4 py-1.5 rounded-xl font-bold hover:bg-green-50 transition">
+                            Log In
+                        </a>
+                    </div>
+                    <a href="booking.html" class="bg-black text-green-500 px-5 py-2 rounded-xl font-bold hover:bg-gray-900 transition shadow-sm">
+                        Book a Class
+                    </a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden -mr-2 flex items-center">
+                    <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-lg text-gray-500 hover:text-green-600 hover:bg-gray-100 focus:outline-none">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="menu-overlay" class="menu-overlay fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"></div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu fixed top-0 left-0 w-72 h-full bg-white shadow-xl z-50 md:hidden">
+        <div class="flex justify-between items-center p-5 border-b">
+            <span class="text-2xl font-extrabold bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent">LearnFlow</span>
+            <button id="close-menu" class="p-2 rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100">✕</button>
+        </div>
+        <div class="p-5 space-y-4">
+            <a href="index.html" class="block text-gray-700 hover:text-green-600 font-semibold text-base py-1.5">Home</a>
+            <a href="teachers.html" class="block text-gray-700 hover:text-green-600 font-semibold text-base py-1.5">Our Teachers</a>
+            <a href="index.html#subjects" class="block text-gray-700 hover:text-green-600 font-semibold text-base py-1.5">Subjects</a>
+            <a href="index.html#how-it-works" class="block text-gray-700 hover:text-green-600 font-semibold text-base py-1.5">How It Works</a>
+            <a href="about.html" class="block text-gray-700 hover:text-green-600 font-semibold text-base py-1.5">About Us</a>
+            <a href="my-bookings.html" class="block text-gray-700 hover:text-green-600 font-semibold text-base py-1.5">My Bookings</a>
+            <div id="mobile-auth-container">
+                <a href="login.html" id="mobile-login-link" class="block border border-green-500 text-green-600 px-4 py-2.5 rounded-xl font-bold hover:bg-green-50 transition text-center">
+                    Student Log In
+                </a>
+            </div>
+            <a href="booking.html" class="block bg-black text-green-500 px-4 py-2.5 rounded-xl font-bold hover:bg-gray-900 transition text-center">
+                Book a Class
+            </a>
+        </div>
+    </div>
 
     <div class="max-w-xl mx-auto px-4 py-10">
         <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
@@ -78,8 +130,8 @@
             </form>
 
             <div class="mt-6 pt-5 border-t border-gray-100 flex justify-between items-center text-sm">
-                <a href="index.html" class="text-gray-500 hover:text-green-600 font-medium">← Return to Home Page</a>
-                <a href="my-bookings.html" class="text-green-600 font-semibold hover:underline">View Scheduled Classes →</a>
+                <a href="index.html" class="text-gray-500 hover:text-green-600 font-medium">&larr; Return to Home Page</a>
+                <a href="my-bookings.html" class="text-green-600 font-semibold hover:underline">View Scheduled Classes &rarr;</a>
             </div>
         </div>
     </div>
@@ -108,11 +160,6 @@
         }
         checkUser();
 
-        document.getElementById('logout-btn').addEventListener('click', async () => {
-            await supabaseClient.auth.signOut();
-            window.location.href = 'login.html';
-        });
-
         const form = document.getElementById('booking-form');
         const alertBox = document.getElementById('alert-box');
         const submitBtn = document.getElementById('submit-btn');
@@ -130,7 +177,6 @@
             const subject = document.getElementById('subject').value;
             const teacher = document.getElementById('teacher').value;
             const rawDate = document.getElementById('booking-date').value;
-            // Convert local datetime input into proper ISO string with timezone for Supabase timestamptz
             const isoBookingDate = new Date(rawDate).toISOString();
 
             const { error } = await supabaseClient.from('bookings').insert([
@@ -151,10 +197,68 @@
                 alertBox.textContent = 'Error booking class: ' + error.message;
             } else {
                 alertBox.className = 'mb-5 p-4 rounded-xl text-sm font-medium bg-green-100 text-green-700';
-                alertBox.innerHTML = '🎉 Success! Your class has been booked. <a href="my-bookings.html" class="underline font-bold ml-1">View in My Bookings →</a>';
+                alertBox.innerHTML = '&🎉 Success! Your class has been booked. <a href="my-bookings.html" class="underline font-bold ml-1">View in My Bookings &rarr;</a>';
                 form.reset();
             }
         });
+    </script>
+    <script>
+        // Global Auth check for navigation bar across all pages
+        (async function() {
+            const client = supabaseClient;
+            const { data: { session } } = await client.auth.getSession();
+            
+            const loginLink = document.getElementById('login-link');
+            const mobileLoginLink = document.getElementById('mobile-login-link');
+            
+            if (session && session.user) {
+                if (loginLink) {
+                    loginLink.textContent = 'Log Out';
+                    loginLink.href = '#';
+                    loginLink.className = 'border border-red-500 text-red-600 px-4 py-1.5 rounded-xl font-bold hover:bg-red-50 transition';
+                    loginLink.onclick = async (e) => {
+                        e.preventDefault();
+                        await client.auth.signOut();
+                        window.location.reload();
+                    };
+                }
+                if (mobileLoginLink) {
+                    mobileLoginLink.textContent = 'Log Out';
+                    mobileLoginLink.href = '#';
+                    mobileLoginLink.className = 'block border border-red-500 text-red-600 px-4 py-2.5 rounded-xl font-bold hover:bg-red-50 transition text-center';
+                    mobileLoginLink.onclick = async (e) => {
+                        e.preventDefault();
+                        await client.auth.signOut();
+                        window.location.reload();
+                    };
+                }
+            }
+        })();
+
+        // Mobile menu functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenuButton = document.getElementById('close-menu');
+        const menuOverlay = document.getElementById('menu-overlay');
+        
+        if (mobileMenuButton) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.add('open');
+                menuOverlay.classList.add('active');
+            });
+        }
+        if (closeMenuButton) {
+            closeMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                menuOverlay.classList.remove('active');
+            });
+        }
+        if (menuOverlay) {
+            menuOverlay.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                menuOverlay.classList.remove('active');
+            });
+        }
     </script>
 </body>
 </html>
