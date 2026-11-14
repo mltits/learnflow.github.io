@@ -55,12 +55,12 @@
     <script>
         const SUPABASE_URL = 'https://ztsiddiimopotsffuxms.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_NrRZIYGQmBZVBMxbeIp-eA_ggLHNGzL';
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         let currentUser = null;
 
         async function checkUser() {
-            const { data: { session } } = await supabase.auth.getSession();
+            const { data: { session } } = await supabaseClient.auth.getSession();
             if (!session) {
                 window.location.href = 'login.html'; // Redirect to login if not authenticated
             } else {
@@ -70,7 +70,7 @@
         checkUser();
 
         document.getElementById('logout-btn').addEventListener('click', async () => {
-            await supabase.auth.signOut();
+            await supabaseClient.auth.signOut();
             window.location.href = 'login.html';
         });
 
@@ -83,7 +83,7 @@
             const teacher = document.getElementById('teacher').value;
             const bookingDate = document.getElementById('booking-date').value;
 
-            const { data, error } = await supabase.from('bookings').insert([
+            const { data, error } = await supabaseClient.from('bookings').insert([
                 { 
                     user_email: currentUser.email, 
                     subject: subject, 
