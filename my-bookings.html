@@ -8,10 +8,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; font-size: 16px; }
     </style>
 </head>
-<body class="bg-emerald-50 min-h-screen text-gray-800">
+<body class="bg-emerald-50 min-h-screen antialiased text-gray-800">
     <!-- Top Nav -->
     <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between h-16 items-center">
@@ -20,6 +20,7 @@
                 <span class="text-xs bg-green-100 text-green-700 px-2.5 py-0.5 rounded-full font-semibold">Student Portal</span>
             </a>
             <div class="flex items-center space-x-4">
+                <a href="index.html" class="text-sm font-semibold text-gray-600 hover:text-green-600 transition hidden sm:inline">← Back to Home</a>
                 <a href="booking.html" class="bg-green-600 text-white text-sm font-bold px-4 py-2 rounded-xl hover:bg-green-700 transition">
                     + Book New Class
                 </a>
@@ -37,7 +38,7 @@
                 <h1 class="text-3xl font-extrabold text-gray-900">My Scheduled Classes</h1>
                 <p id="user-email-display" class="text-sm text-gray-500 mt-1">Loading account...</p>
             </div>
-            <a href="index.html" class="text-sm text-green-700 hover:underline mt-3 sm:mt-0">← Back to Website</a>
+            <a href="index.html" class="text-sm font-semibold text-green-700 hover:underline mt-3 sm:mt-0">← Back to Home</a>
         </div>
 
         <div id="status-msg" class="hidden mb-6 p-4 rounded-xl text-sm font-medium"></div>
@@ -53,7 +54,7 @@
                 📅
             </div>
             <h2 class="text-xl font-bold text-gray-800">No classes booked yet</h2>
-            <p class="text-gray-500 mt-2 max-w-md mx-auto">Ready to start learning? Schedule your first 1:1 session with one of our expert tutors.</p>
+            <p class="text-gray-500 mt-2 max-w-md mx-auto">Ready to start learning? Schedule your first 1:1 session with one of our expert teachers.</p>
             <a href="booking.html" class="inline-block mt-6 bg-green-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-green-700 transition">
                 Book Your First Class
             </a>
@@ -64,7 +65,6 @@
     </div>
 
     <script>
-        // REPLACE THESE WITH YOUR ACTUAL SUPABASE CREDENTIALS (same as login.html & booking.html)
         const SUPABASE_URL = 'https://ztsiddiimopotsffuxms.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_NrRZIYGQmBZVBMxbeIp-eA_ggLHNGzL';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
