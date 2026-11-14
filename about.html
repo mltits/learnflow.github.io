@@ -6,6 +6,7 @@
     <title>LearnFlow | About Us - Our Story & Mission</title>
     <link rel="canonical" href="https://learnflowedu.com/about.html" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
@@ -61,7 +62,6 @@
             }
         }
     </style>
-    <link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2310b981'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/%3E%3C/svg%3E">
 </head>
 <body class="antialiased text-gray-800">
 
@@ -69,20 +69,23 @@
     <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
-                <a href="index.html" class="flex items-center gap-1">
+                <a href="index.html" class="flex items-center">
                     <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent">LearnFlow</span>
-                    <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full ml-1 font-semibold">About</span>
                 </a>
                 <div class="hidden md:flex md:items-center md:space-x-6">
                     <a href="index.html" class="text-gray-600 hover:text-green-600 font-semibold transition">Home</a>
                     <a href="teachers.html" class="text-gray-600 hover:text-green-600 font-semibold transition">Our Teachers</a>
+                    <a href="index.html#subjects" class="text-gray-600 hover:text-green-600 font-semibold transition">Subjects</a>
+                    <a href="index.html#how-it-works" class="text-gray-600 hover:text-green-600 font-semibold transition">How It Works</a>
                     <a href="about.html" class="text-green-600 font-bold border-b-2 border-green-500 pb-1">About Us</a>
                     <a href="my-bookings.html" class="text-gray-600 hover:text-green-600 font-semibold transition">My Bookings</a>
-                    <a href="login.html" class="border border-green-500 text-green-600 px-4 py-1.5 rounded-xl font-bold hover:bg-green-50 transition">
-                        Log In
-                    </a>
-                    <a href="booking.html" 
-                       class="bg-black text-green-500 px-5 py-2 rounded-xl font-bold hover:bg-gray-900 transition shadow-sm">
+                    
+                    <div id="auth-nav-item">
+                        <a href="login.html" id="login-link" class="border border-green-500 text-green-600 px-4 py-1.5 rounded-xl font-bold hover:bg-green-50 transition">
+                            Log In
+                        </a>
+                    </div>
+                    <a href="booking.html" class="bg-black text-green-500 px-5 py-2 rounded-xl font-bold hover:bg-gray-900 transition shadow-sm">
                         Book a Class
                     </a>
                 </div>
@@ -107,9 +110,15 @@
         <div class="p-6 flex flex-col space-y-4">
             <a href="index.html" class="text-gray-700 font-semibold text-base hover:text-green-600 transition flex items-center gap-2"><i data-feather="home" class="w-4 h-4"></i> Home</a>
             <a href="teachers.html" class="text-gray-700 font-semibold text-base hover:text-green-600 transition flex items-center gap-2"><i data-feather="users" class="w-4 h-4"></i> Our Teachers</a>
+            <a href="index.html#subjects" class="text-gray-700 font-semibold text-base hover:text-green-600 transition flex items-center gap-2"><i data-feather="book" class="w-4 h-4"></i> Subjects</a>
+            <a href="index.html#how-it-works" class="text-gray-700 font-semibold text-base hover:text-green-600 transition flex items-center gap-2"><i data-feather="help-circle" class="w-4 h-4"></i> How It Works</a>
             <a href="about.html" class="text-green-600 font-bold text-base flex items-center gap-2"><i data-feather="heart" class="w-4 h-4"></i> About Us</a>
             <a href="my-bookings.html" class="text-gray-700 font-semibold text-base hover:text-green-600 transition flex items-center gap-2"><i data-feather="calendar" class="w-4 h-4"></i> My Bookings</a>
-            <a href="login.html" class="text-gray-700 font-semibold text-base hover:text-green-600 transition flex items-center gap-2"><i data-feather="log-in" class="w-4 h-4"></i> Log In</a>
+            <div id="mobile-auth-container">
+                <a href="login.html" id="mobile-login-link" class="block border border-green-500 text-green-600 px-4 py-2.5 rounded-xl font-bold hover:bg-green-50 transition text-center">
+                    Student Log In
+                </a>
+            </div>
             <div class="pt-3">
                 <a href="booking.html" class="block w-full text-center bg-black text-green-400 font-bold py-3 rounded-xl hover:bg-gray-800 transition">
                     Book a Class
@@ -143,7 +152,7 @@
                         <i data-feather="target" class="w-7 h-7 text-green-600"></i>
                     </div>
                     <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3">Our Mission</h2>
-                    <p class="text-gray-600 leading-relaxed">To democratize education by connecting every learner with a dedicated mentor who inspires confidence, nurtures curiosity, and unlocks their full potential — regardless of background or location.</p>
+                    <p class="text-gray-600 leading-relaxed">To democratize education by connecting every learner with a dedicated mentor who inspires confidence, nurtures curiosity, and unlocks their full potential &mdash; regardless of background or location.</p>
                     <div class="mt-6 pt-4 border-t border-gray-100">
                         <p class="text-green-600 font-semibold text-sm">Every student deserves a champion.</p>
                     </div>
@@ -153,7 +162,7 @@
                         <i data-feather="eye" class="w-7 h-7 text-green-600"></i>
                     </div>
                     <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3">Our Vision</h2>
-                    <p class="text-gray-600 leading-relaxed">A world where personalized learning is not a privilege but a standard — where technology and human connection combine to create limitless educational opportunities for all.</p>
+                    <p class="text-gray-600 leading-relaxed">A world where personalized learning is not a privilege but a standard &mdash; where technology and human connection combine to create limitless educational opportunities for all.</p>
                     <div class="mt-6 pt-4 border-t border-gray-100">
                         <p class="text-green-600 font-semibold text-sm">Building brighter futures, one lesson at a time.</p>
                     </div>
@@ -171,7 +180,7 @@
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                     <div data-aos="zoom-in"><div class="stat-number">98%</div><p class="font-bold text-gray-800 mt-1">Student Satisfaction</p><span class="text-sm text-gray-500">Based on 500+ reviews</span></div>
                     <div data-aos="zoom-in" data-aos-delay="100"><div class="stat-number">30k+</div><p class="font-bold text-gray-800 mt-1">Hours Tutored</p><span class="text-sm text-gray-500">And counting</span></div>
-                    <div data-aos="zoom-in" data-aos-delay="200"><div class="stat-number">4.9</div><p class="font-bold text-gray-800 mt-1">Average Rating</p><span class="text-sm text-gray-500">★★★★★</span></div>
+                    <div data-aos="zoom-in" data-aos-delay="200"><div class="stat-number">4.9</div><p class="font-bold text-gray-800 mt-1">Average Rating</p><span class="text-sm text-gray-500">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
                     <div data-aos="zoom-in" data-aos-delay="300"><div class="stat-number">87%</div><p class="font-bold text-gray-800 mt-1">Grade Improvement</p><span class="text-sm text-gray-500">Within 3 months</span></div>
                 </div>
             </div>
@@ -207,112 +216,11 @@
             </div>
         </div>
 
-        <!-- Our Journey Timeline -->
-        <div class="bg-white py-16">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-12" data-aos="fade-up">
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900">Our Journey</h2>
-                    <p class="text-gray-600 mt-2">From a small idea to a growing educational movement</p>
-                </div>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="text-center p-6" data-aos="fade-right">
-                        <div class="w-20 h-20 bg-green-600 text-white rounded-full flex items-center justify-center text-2xl font-extrabold mx-auto mb-4 shadow-lg">2020</div>
-                        <h3 class="text-xl font-bold">The Beginning</h3>
-                        <p class="text-gray-600 mt-2 text-sm">Founded by educators who believed in 1:1 personalized learning. Started with 5 teachers and 20 students.</p>
-                    </div>
-                    <div class="text-center p-6" data-aos="fade-up">
-                        <div class="w-20 h-20 bg-green-600 text-white rounded-full flex items-center justify-center text-2xl font-extrabold mx-auto mb-4 shadow-lg">2022</div>
-                        <h3 class="text-xl font-bold">Expansion</h3>
-                        <p class="text-gray-600 mt-2 text-sm">Grew to 30+ expert teachers, served 300+ students across multiple countries and curricula.</p>
-                    </div>
-                    <div class="text-center p-6" data-aos="fade-left">
-                        <div class="w-20 h-20 bg-green-600 text-white rounded-full flex items-center justify-center text-2xl font-extrabold mx-auto mb-4 shadow-lg">2026</div>
-                        <h3 class="text-xl font-bold">Today & Beyond</h3>
-                        <p class="text-gray-600 mt-2 text-sm">50+ passionate teachers, 800+ happy learners, and a vision to reach every corner of the globe.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Leadership -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div class="text-center mb-12" data-aos="fade-up">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900">Meet the Minds Behind LearnFlow</h2>
-                <p class="text-gray-600 mt-2">Dedicated leaders committed to educational excellence</p>
-            </div>
-            <div class="max-w-md mx-auto">
-                <div class="team-card bg-white rounded-2xl p-8 text-center shadow-md" data-aos="zoom-in">
-                    <img src="assets/images/edb6f75a-ecd4-4846-bfd0-4ade82ce5105.tmp" class="w-28 h-28 rounded-full mx-auto object-cover border-4 border-green-200 mb-4" alt="Academic Director">
-                    <h3 class="text-xl font-bold text-gray-900">Aayesha Qureshi</h3>
-                    <p class="text-green-600 font-semibold text-sm">Academic Director & Founder</p>
-                    <p class="text-gray-600 text-sm mt-3">Curriculum specialist, STEM education advocate, and mentor to 100+ teachers.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Testimonial -->
-        <div id="about-us" class="py-16 bg-[#d4f0e3]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="md:flex gap-12 items-center">
-                    <div class="md:w-1/2 mb-8 md:mb-0" data-aos="fade-right">
-                        <h2 class="text-3xl font-extrabold text-gray-900">About LearnFlow</h2>
-                        <div class="w-20 h-1 bg-green-600 my-4"></div>
-                        <p class="text-gray-700 leading-relaxed">Founded by educators who believe that every learner deserves a personal mentor. Our platform connects students with the finest teachers, delivering result-driven education. All sessions are recorded, progress reports shared, and learning paths customized.</p>
-                        <div class="mt-6 flex items-center gap-3 text-gray-800 font-medium"><i data-feather="award" class="text-green-700 w-5 h-5"></i><span>100% satisfaction guarantee</span></div>
-                        <div class="flex items-center gap-3 mt-2 text-gray-800 font-medium"><i data-feather="clock" class="text-green-700 w-5 h-5"></i><span>Flexible timing & 24/7 support</span></div>
-                    </div>
-                    <div class="md:w-1/2 bg-white p-8 rounded-2xl shadow-lg" data-aos="fade-left">
-                        <i data-feather="message-circle" class="w-8 h-8 text-green-600 mb-3"></i>
-                        <p class="italic text-gray-700 text-lg">“The teachers are incredibly patient and adaptive. My son's grades improved from C to A in just 3 months. Highly recommended!”</p>
-                        <div class="flex items-center mt-5 gap-3">
-                            <img src="https://randomuser.me/api/portraits/men/21.jpg" class="w-12 h-12 rounded-full" alt="Parent">
-                            <div>
-                                <p class="font-bold text-gray-900">— Ramesh K.</p>
-                                <p class="text-sm text-green-600 font-medium">Parent of Grade 10 student</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- FAQ Section -->
-        <div class="py-16 max-w-4xl mx-auto px-4">
-            <h2 class="text-3xl font-extrabold text-center mb-10 text-gray-900">Frequently Asked Questions</h2>
-            <div class="space-y-4">
-                <div class="faq-item bg-white rounded-2xl p-6 shadow-sm"><h3 class="font-bold text-green-800 text-lg">How do I book a class or free demo?</h3><p class="text-gray-600 text-sm mt-1">Click “Book a Class” in the navigation bar to schedule directly in your student portal, or click “Book Free Demo” to connect via WhatsApp.</p></div>
-                <div class="faq-item bg-white rounded-2xl p-6 shadow-sm"><h3 class="font-bold text-green-800 text-lg">Are the teachers certified?</h3><p class="text-gray-600 text-sm mt-1">Yes! Every teacher undergoes rigorous screening, background checks, and teaching demonstrations.</p></div>
-                <div class="faq-item bg-white rounded-2xl p-6 shadow-sm"><h3 class="font-bold text-green-800 text-lg">What subjects do you cover?</h3><p class="text-gray-600 text-sm mt-1">Math, Physics, Chemistry, Biology, English, Programming, Public Speaking, Creative Writing, and more.</p></div>
-                <div class="faq-item bg-white rounded-2xl p-6 shadow-sm"><h3 class="font-bold text-green-800 text-lg">How do I become a teacher?</h3><p class="text-gray-600 text-sm mt-1">Reach out via WhatsApp with your qualifications and we will guide you through our onboarding process.</p></div>
-            </div>
-        </div>
-
-        <!-- Join Our Mission CTA -->
-        <div class="py-16 px-4">
-            <div class="max-w-5xl mx-auto bg-green-600 rounded-3xl shadow-xl overflow-hidden md:flex">
-                <div class="md:w-1/2 p-10 text-white">
-                    <i data-feather="heart" class="w-10 h-10 mb-4"></i>
-                    <h3 class="text-2xl md:text-3xl font-extrabold">Join Our Mission</h3>
-                    <p class="mt-3 text-green-50">Whether you're a student seeking guidance or a teacher wanting to make an impact — we're here for you.</p>
-                    <div class="flex flex-wrap gap-3 mt-6">
-                        <a href="booking.html" class="bg-white text-green-700 font-bold px-6 py-3 rounded-xl hover:bg-gray-100 transition">Book a Class →</a>
-                        <a href="https://wa.me/917414965374?text=I%20want%20to%20teach%20with%20LearnFlow" target="_blank" class="bg-black text-white font-bold px-6 py-3 rounded-xl hover:bg-gray-900 transition">Become a Teacher →</a>
-                    </div>
-                </div>
-                <div class="md:w-1/2 bg-green-700 p-10 flex items-center justify-center">
-                    <div class="text-center text-white">
-                        <p class="text-2xl md:text-3xl font-bold leading-snug">"Education is the most powerful weapon which you can use to change the world."</p>
-                        <p class="mt-4 font-semibold text-green-200">— Nelson Mandela</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Footer -->
         <footer class="bg-gray-900 text-gray-300 py-10">
             <div class="max-w-7xl mx-auto px-4 text-center">
-                <span class="text-green-400 font-extrabold text-xl">LearnFlow — About Us</span>
-                <p class="text-sm mt-2">© 2026 LearnFlow. Empowering education, one learner at a time.</p>
+                <span class="text-green-400 font-extrabold text-xl">LearnFlow &mdash; About Us</span>
+                <p class="text-sm mt-2">&copy; 2026 LearnFlow. Empowering education, one learner at a time.</p>
                 <div class="flex justify-center gap-6 mt-4 text-sm">
                     <a href="index.html" class="hover:text-green-400">Home</a>
                     <a href="teachers.html" class="hover:text-green-400">Our Teachers</a>
@@ -326,6 +234,39 @@
     <script>
         feather.replace();
         AOS.init({ once: true, duration: 700, offset: 20 });
+
+        const SUPABASE_URL = 'https://ztsiddiimopotsffuxms.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_NrRZIYGQmBZVBMxbeIp-eA_ggLHNGzL';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        (async function() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            const loginLink = document.getElementById('login-link');
+            const mobileLoginLink = document.getElementById('mobile-login-link');
+            
+            if (session && session.user) {
+                if (loginLink) {
+                    loginLink.textContent = 'Log Out';
+                    loginLink.href = '#';
+                    loginLink.className = 'border border-red-500 text-red-600 px-4 py-1.5 rounded-xl font-bold hover:bg-red-50 transition';
+                    loginLink.onclick = async (e) => {
+                        e.preventDefault();
+                        await supabaseClient.auth.signOut();
+                        window.location.reload();
+                    };
+                }
+                if (mobileLoginLink) {
+                    mobileLoginLink.textContent = 'Log Out';
+                    mobileLoginLink.href = '#';
+                    mobileLoginLink.className = 'block border border-red-500 text-red-600 px-4 py-2.5 rounded-xl font-bold hover:bg-red-50 transition text-center';
+                    mobileLoginLink.onclick = async (e) => {
+                        e.preventDefault();
+                        await supabaseClient.auth.signOut();
+                        window.location.reload();
+                    };
+                }
+            }
+        })();
 
         const menuBtn = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
