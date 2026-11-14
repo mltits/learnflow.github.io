@@ -31,7 +31,6 @@
       ]
     }
     </script>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-B9L0QR0K2P"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -41,6 +40,7 @@
     </script>
     
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
@@ -53,21 +53,9 @@
         .hero-gradient { 
             background: linear-gradient(135deg, #00ff9d 0%, #00b377 100%); 
         }
-        .btn-primary { 
-            background: linear-gradient(135deg, #00ff9d 0%, #00b377 100%); 
-        }
-        .btn-primary:hover { 
-            background: linear-gradient(135deg, #00e68a 0%, #009966 100%); 
-        }
         .card-hover:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        .faq-item {
-            transition: all 0.3s ease;
-        }
-        .faq-item:hover {
-            background-color: #f8fafc;
         }
         .bg-fixed-ios {
             background-attachment: scroll;
@@ -97,9 +85,6 @@
         }
     </style>
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/logo.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/logo.png">
-    <link rel="apple-touch-icon" href="assets/images/logo.png">
-    <link rel="shortcut icon" href="assets/images/logo.ico">
 </head>
 <body class="antialiased text-gray-800">
     <!-- Navigation -->
@@ -116,11 +101,13 @@
                     <a href="#how-it-works" class="text-gray-600 hover:text-green-600 font-semibold transition">How It Works</a>
                     <a href="about.html" class="text-gray-600 hover:text-green-600 font-semibold transition">About Us</a>
                     <a href="my-bookings.html" class="text-gray-600 hover:text-green-600 font-semibold transition">My Bookings</a>
-                    <a href="login.html" class="border border-green-500 text-green-600 px-4 py-1.5 rounded-xl font-bold hover:bg-green-50 transition">
-                        Log In
-                    </a>
-                    <a href="booking.html" 
-                       class="bg-black text-green-500 px-5 py-2 rounded-xl font-bold hover:bg-gray-900 transition shadow-sm">
+                    
+                    <div id="auth-nav-item">
+                        <a href="login.html" id="login-link" class="border border-green-500 text-green-600 px-4 py-1.5 rounded-xl font-bold hover:bg-green-50 transition">
+                            Log In
+                        </a>
+                    </div>
+                    <a href="booking.html" class="bg-black text-green-500 px-5 py-2 rounded-xl font-bold hover:bg-gray-900 transition shadow-sm">
                         Book a Class
                     </a>
                 </div>
@@ -152,11 +139,12 @@
             <a href="#how-it-works" class="block text-gray-700 hover:text-green-600 font-semibold text-base py-1.5">How It Works</a>
             <a href="about.html" class="block text-gray-700 hover:text-green-600 font-semibold text-base py-1.5">About Us</a>
             <a href="my-bookings.html" class="block text-gray-700 hover:text-green-600 font-semibold text-base py-1.5">My Bookings</a>
-            <a href="login.html" class="block border border-green-500 text-green-600 px-4 py-2.5 rounded-xl font-bold hover:bg-green-50 transition text-center">
-                Student Log In
-            </a>
-            <a href="booking.html" 
-               class="block bg-black text-green-500 px-4 py-2.5 rounded-xl font-bold hover:bg-gray-900 transition text-center">
+            <div id="mobile-auth-container">
+                <a href="login.html" id="mobile-login-link" class="block border border-green-500 text-green-600 px-4 py-2.5 rounded-xl font-bold hover:bg-green-50 transition text-center">
+                    Student Log In
+                </a>
+            </div>
+            <a href="booking.html" class="block bg-black text-green-500 px-4 py-2.5 rounded-xl font-bold hover:bg-gray-900 transition text-center">
                 Book a Class
             </a>
         </div>
@@ -171,7 +159,7 @@
                     <p class="text-lg md:text-xl mb-8 text-white/95">Connect with expert teachers for 1:1 lessons tailored to your learning goals.</p>
                     <div class="flex items-center space-x-6 mb-8">
                         <div class="flex items-center">
-                            <span class="text-yellow-300 text-2xl mr-2">★★★★★</span>
+                            <span class="text-yellow-300 text-2xl mr-2">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
                             <span class="font-bold text-lg">4.8/5</span>
                         </div>
                         <div class="flex items-center">
@@ -180,20 +168,16 @@
                         </div>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="booking.html" 
-                           class="bg-black text-green-400 px-7 py-3.5 rounded-xl font-bold hover:bg-gray-900 transition text-center shadow-lg">
+                        <a href="booking.html" class="bg-black text-green-400 px-7 py-3.5 rounded-xl font-bold hover:bg-gray-900 transition text-center shadow-lg">
                             Book Now
                         </a>
-                        <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20free%20demo" 
-                           target="_blank"
-                           class="bg-white text-green-700 px-7 py-3.5 rounded-xl font-bold hover:bg-gray-100 transition text-center shadow-lg">
+                        <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20free%20demo" target="_blank" class="bg-white text-green-700 px-7 py-3.5 rounded-xl font-bold hover:bg-gray-100 transition text-center shadow-lg">
                             Book Free Demo
                         </a>
                     </div>
                 </div>
                 <div class="md:w-1/2" data-aos="fade-left">
-                    <img src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
-                         class="rounded-2xl shadow-xl w-full" alt="Students learning">
+                    <img src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" class="rounded-2xl shadow-xl w-full" alt="Students learning">
                 </div>
             </div>
         </div>
@@ -223,9 +207,7 @@
     <!-- Featured Teachers Section -->
     <section id="teachers" class="py-16 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <img src="https://images.unsplash.com/photo-1685358279653-868c0b99fe6c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-                 alt="Tutoring session" 
-                 class="w-full h-48 md:h-64 lg:h-96 object-cover rounded-2xl mb-14 shadow-md">
+            <img src="https://images.unsplash.com/photo-1685358279653-868c0b99fe6c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Tutoring session" class="w-full h-48 md:h-64 lg:h-96 object-cover rounded-2xl mb-14 shadow-md">
             
             <div class="text-center mb-14">
                 <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3" data-aos="fade-up">Our Top Teachers</h2>
@@ -242,7 +224,7 @@
                     </div>
                     <div>
                         <div class="text-center mb-4">
-                            <span class="text-yellow-400">★★★★★</span>
+                            <span class="text-yellow-400">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
                             <span class="text-gray-600 text-sm ml-1">4.9 (228)</span>
                         </div>
                         <div class="text-center">
@@ -261,7 +243,7 @@
                     </div>
                     <div>
                         <div class="text-center mb-4">
-                            <span class="text-yellow-400">★★★★★</span>
+                            <span class="text-yellow-400">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
                             <span class="text-gray-600 text-sm ml-1">4.8 (116)</span>
                         </div>
                         <div class="text-center">
@@ -280,7 +262,7 @@
                     </div>
                     <div>
                         <div class="text-center mb-4">
-                            <span class="text-yellow-400">★★★★★</span>
+                            <span class="text-yellow-400">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
                             <span class="text-gray-600 text-sm ml-1">4.9 (105)</span>
                         </div>
                         <div class="text-center">
@@ -299,7 +281,7 @@
                     </div>
                     <div>
                         <div class="text-center mb-4">
-                            <span class="text-yellow-400">★★★★</span>
+                            <span class="text-yellow-400">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
                             <span class="text-gray-600 text-sm ml-1">4.1 (56)</span>
                         </div>
                         <div class="text-center">
@@ -311,7 +293,6 @@
                 </div>
             </div>
             
-            <!-- Big Block Button to teachers.html -->
             <div class="mt-14" data-aos="fade-up" data-aos-delay="200">
                 <a href="teachers.html" class="block group">
                     <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-8 md:p-10 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-green-200 hover:border-green-400">
@@ -322,7 +303,7 @@
                                 </div>
                                 <div class="text-left">
                                     <h3 class="text-2xl md:text-3xl font-extrabold text-gray-800">Meet All Our Expert Teachers</h3>
-                                    <p class="text-gray-600 mt-1">50+ qualified teachers across 10+ subjects • 4.9 average rating</p>
+                                    <p class="text-gray-600 mt-1">50+ qualified teachers across 10+ subjects &bull; 4.9 average rating</p>
                                 </div>
                             </div>
                             <div class="flex items-center gap-2 bg-green-600 text-white px-6 py-3.5 rounded-xl font-bold group-hover:bg-green-700 transition-all duration-300 shadow-md">
@@ -334,9 +315,7 @@
                 </a>
             </div>
 
-            <img src="https://i2-prod.mirror.co.uk/article23879389.ece/ALTERNATES/s1200b/1_Back-view-of-elementary-students-raising-their-arms-on-a-class.jpg" 
-                 alt="Students learning" 
-                 class="w-full h-80 md:h-96 object-cover rounded-2xl mt-14 shadow-md">
+            <img src="https://i2-prod.mirror.co.uk/article23879389.ece/ALTERNATES/s1200b/1_Back-view-of-elementary-students-raising-their-arms-on-a-class.jpg" alt="Students learning" class="w-full h-80 md:h-96 object-cover rounded-2xl mt-14 shadow-md">
         </div>
     </section>
 
@@ -371,8 +350,7 @@
     </section>
 
     <!-- Subjects Section -->
-    <section id="subjects" class="relative py-20 bg-cover bg-center text-white bg-fixed-ios"
-             style="background-image: url('assets/images/kids.webp');">
+    <section id="subjects" class="relative py-20 bg-cover bg-center text-white bg-fixed-ios" style="background-image: url('assets/images/kids.webp');">
         <div class="absolute inset-0 bg-black bg-opacity-55"></div>
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-14">
@@ -383,43 +361,43 @@
             </div>
             <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
                 <div class="text-center p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-3xl">🧮</span></div>
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-3xl">&#129518;</span></div>
                     <h3 class="font-bold text-lg text-gray-800">Mathematics</h3>
                 </div>
                 <div class="text-center p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="50">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-3xl">🌿</span></div>
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-3xl">&#127807;</span></div>
                     <h3 class="font-bold text-lg text-gray-800">Science</h3>
                 </div>
                 <div class="text-center p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-3xl">🧪</span></div>
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-3xl">&#129514;</span></div>
                     <h3 class="font-bold text-lg text-gray-800">Chemistry</h3>
                 </div>
                 <div class="text-center p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="150">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-3xl">🧬</span></div>
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-3xl">&#129519;</span></div>
                     <h3 class="font-bold text-lg text-gray-800">Biology</h3>
                 </div>
                 <div class="text-center p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-3xl">✍️</span></div>
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-3xl">&#9997;&#65039;</span></div>
                     <h3 class="font-bold text-lg text-gray-800">English</h3>
                 </div>
                 <div class="text-center p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="250">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-3xl">🖥️</span></div>
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-3xl">&#128187;</span></div>
                     <h3 class="font-bold text-lg text-gray-800">Computer</h3>
                 </div>
                 <div class="text-center p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-3xl">👨‍💻</span></div>
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-3xl">&#128187;</span></div>
                     <h3 class="font-bold text-lg text-gray-800">Coding</h3>
                 </div>
                 <div class="text-center p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="350">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-3xl">🎤</span></div>
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-3xl">&#127908;</span></div>
                     <h3 class="font-bold text-lg text-gray-800">Public Speaking</h3>
                 </div>
                 <div class="text-center p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="400">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-3xl">✒️</span></div>
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-3xl">&#128391;</span></div>
                     <h3 class="font-bold text-lg text-gray-800">Creative Writing</h3>
                 </div>
                 <div class="text-center p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition duration-300 card-hover" data-aos="fade-up" data-aos-delay="450">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-3xl">🗣️</span></div>
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-3xl">&#128483;</span></div>
                     <h3 class="font-bold text-lg text-gray-800">Spoken English</h3>
                 </div>
             </div>
@@ -509,15 +487,10 @@
                 Join hundreds of students who have achieved academic success with our expert teachers
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="booking.html" 
-                   class="bg-white text-green-700 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition duration-300 inline-block shadow-lg" 
-                   data-aos="fade-up" data-aos-delay="200">
+                <a href="booking.html" class="bg-white text-green-700 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition duration-300 inline-block shadow-lg" data-aos="fade-up" data-aos-delay="200">
                     Book Your First Session
                 </a>
-                <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20free%20demo" 
-                   target="_blank"
-                   class="bg-black text-green-400 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-900 transition duration-300 inline-block shadow-lg" 
-                   data-aos="fade-up" data-aos-delay="300">
+                <a href="https://wa.me/917414965374?text=Hello%2C%20I%20would%20like%20to%20book%20a%20free%20demo" target="_blank" class="bg-black text-green-400 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-900 transition duration-300 inline-block shadow-lg" data-aos="fade-up" data-aos-delay="300">
                     Book Free Demo
                 </a>
             </div>
@@ -555,7 +528,7 @@
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-10 pt-6 text-center text-gray-400 text-sm">
-                <p>© 2026 LearnFlow. All rights reserved.</p>
+                <p>&copy; 2026 LearnFlow. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -568,6 +541,40 @@
         });
         feather.replace();
         
+        // Supabase Auth Check across pages
+        const SUPABASE_URL = 'https://ztsiddiimopotsffuxms.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_NrRZIYGQmBZVBMxbeIp-eA_ggLHNGzL';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        (async function() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            const loginLink = document.getElementById('login-link');
+            const mobileLoginLink = document.getElementById('mobile-login-link');
+            
+            if (session && session.user) {
+                if (loginLink) {
+                    loginLink.textContent = 'Log Out';
+                    loginLink.href = '#';
+                    loginLink.className = 'border border-red-500 text-red-600 px-4 py-1.5 rounded-xl font-bold hover:bg-red-50 transition';
+                    loginLink.onclick = async (e) => {
+                        e.preventDefault();
+                        await supabaseClient.auth.signOut();
+                        window.location.reload();
+                    };
+                }
+                if (mobileLoginLink) {
+                    mobileLoginLink.textContent = 'Log Out';
+                    mobileLoginLink.href = '#';
+                    mobileLoginLink.className = 'block border border-red-500 text-red-600 px-4 py-2.5 rounded-xl font-bold hover:bg-red-50 transition text-center';
+                    mobileLoginLink.onclick = async (e) => {
+                        e.preventDefault();
+                        await supabaseClient.auth.signOut();
+                        window.location.reload();
+                    };
+                }
+            }
+        })();
+
         // Mobile menu functionality
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -605,282 +612,6 @@
         window.addEventListener('resize', function() {
             if (!isPhone()) closeMobileMenu();
         });
-    </script>
-
-    <!-- ========== EMAIL POPUP (SHOWS ONCE PER PAGE LOAD) ========== -->
-    <style>
-        .lf-email-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(6px);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0.2s, opacity 0.25s ease;
-            font-family: 'Inter', sans-serif;
-        }
-        .lf-email-overlay.active {
-            visibility: visible;
-            opacity: 1;
-        }
-        .lf-popup-card {
-            background: white;
-            max-width: 460px;
-            width: 90%;
-            border-radius: 1.75rem;
-            box-shadow: 0 40px 60px -20px rgba(0, 0, 0, 0.4);
-            text-align: center;
-            padding: 2rem 1.8rem;
-            position: relative;
-        }
-        .lf-popup-card h3 {
-            font-size: 1.75rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #0a6e3a, #10b981);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            margin-bottom: 0.5rem;
-        }
-        .lf-popup-card p {
-            font-size: 0.95rem;
-            color: #4b5563;
-        }
-        .lf-email-input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            margin: 1.5rem 0 1rem;
-        }
-        .lf-email-input-group input {
-            padding: 0.85rem 1.1rem;
-            border-radius: 60px;
-            border: 1.5px solid #e2e8f0;
-            font-size: 1rem;
-            outline: none;
-        }
-        .lf-email-input-group input:focus {
-            border-color: #10b981;
-        }
-        .lf-submit-btn {
-            background: #10b981;
-            color: white;
-            border: none;
-            border-radius: 60px;
-            padding: 0.85rem 1rem;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .lf-submit-btn:hover {
-            background: #0a6e3a;
-        }
-        .lf-close-icon {
-            position: absolute;
-            top: 1rem;
-            right: 1.2rem;
-            background: #f1f5f9;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-weight: bold;
-            color: #4b5563;
-        }
-        .lf-success-message {
-            background: #e6f7ec;
-            border-radius: 40px;
-            padding: 0.75rem;
-            color: #0a6e3a;
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-top: 0.75rem;
-        }
-        .lf-toast-message {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            background: #1f2937;
-            color: white;
-            padding: 10px 18px;
-            border-radius: 40px;
-            font-size: 0.875rem;
-            z-index: 10000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s;
-        }
-    </style>
-
-    <div id="lfEmailPopup" class="lf-email-overlay">
-        <div class="lf-popup-card">
-            <div class="lf-close-icon" id="lfClosePopupBtn">✕</div>
-            <div style="width: 56px; height: 56px; background: #dcfce7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto;">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-            </div>
-            <h3>Get Free Learning Resources!</h3>
-            <p>Join 800+ learners receiving weekly study tips, free worksheets, and exclusive offers.</p>
-            <div class="lf-email-input-group">
-                <input type="email" id="lfVisitorEmail" placeholder="Enter your email address" autocomplete="email">
-                <button id="lfSubmitEmailBtn" class="lf-submit-btn">Subscribe & Get Updates →</button>
-            </div>
-            <button id="lfRemindLaterBtn" style="background:none; border:none; color:#6b7280; font-size:0.875rem; font-weight:500; cursor:pointer; padding: 8px;">Remind me later</button>
-            <p style="font-size:0.75rem; color:#9ca3af; margin-top:0.75rem;">No spam. Unsubscribe anytime.</p>
-        </div>
-    </div>
-    <div id="lfToastMessage" class="lf-toast-message"></div>
-
-    <script>
-    const TELEGRAM_BOT_TOKEN = '8971031518:AAGQAw0j1wJ3yHnPEWk4xCR8OJTMbMa4cKc';
-    const TELEGRAM_CHAT_IDS = ['6892521123', '5007336069'];
-
-    const TRIGGER_DELAY_MS = 15 * 1000; // Shows once 15s after page load
-    let popupTimer = null;
-    let popupShownThisLoad = false;
-
-    const overlay = document.getElementById('lfEmailPopup');
-    const closeBtn = document.getElementById('lfClosePopupBtn');
-    const submitBtn = document.getElementById('lfSubmitEmailBtn');
-    const remindLaterBtn = document.getElementById('lfRemindLaterBtn');
-    const emailInput = document.getElementById('lfVisitorEmail');
-    const toastEl = document.getElementById('lfToastMessage');
-
-    function showToast(message, duration = 3000) {
-        if (!toastEl) return;
-        toastEl.textContent = message;
-        toastEl.style.opacity = '1';
-        setTimeout(() => toastEl.style.opacity = '0', duration);
-    }
-
-    async function sendToTelegram(email) {
-        const message = `📧 *NEW EMAIL SUBSCRIBER!*
-
-✉️ Email: \`${email}\`
-🌐 LearnFlow.com
-⏰ ${new Date().toLocaleString()}`;
-        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-        
-        const results = await Promise.all(
-            TELEGRAM_CHAT_IDS.map(async (chatId) => {
-                try {
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'Markdown' })
-                    });
-                    return await response.json();
-                } catch (error) {
-                    return null;
-                }
-            })
-        );
-        return results.some(r => r && r.ok);
-    }
-
-    async function saveEmail(email) {
-        if (!email || !email.includes('@')) {
-            showToast("❌ Please enter a valid email address.", 3000);
-            return false;
-        }
-        
-        let emailsList = [];
-        const existing = localStorage.getItem('learnflow_collected_emails');
-        if (existing) {
-            try { emailsList = JSON.parse(existing); } catch(e) { emailsList = []; }
-        }
-        
-        if (!emailsList.includes(email)) {
-            emailsList.push(email);
-            localStorage.setItem('learnflow_collected_emails', JSON.stringify(emailsList));
-        }
-        
-        showToast("📨 Sending...", 1500);
-        await sendToTelegram(email);
-        showToast("✅ Subscribed!", 3000);
-        
-        const successDiv = document.createElement('div');
-        successDiv.className = 'lf-success-message';
-        successDiv.innerHTML = '🎉 Thanks for subscribing!';
-        const inputGroup = document.querySelector('.lf-email-input-group');
-        if (inputGroup) {
-            inputGroup.insertAdjacentElement('afterend', successDiv);
-            setTimeout(() => successDiv.remove(), 3000);
-        }
-        
-        setTimeout(() => dismissPopupPermanentlyUntilReload(), 1200);
-        return true;
-    }
-
-    // Dismisses the popup and cancels any timer so it will NOT reappear until the page is reloaded
-    function dismissPopupPermanentlyUntilReload() {
-        if (popupTimer) {
-            clearTimeout(popupTimer);
-            popupTimer = null;
-        }
-        if (overlay) overlay.classList.remove('active');
-        popupShownThisLoad = true;
-    }
-
-    function showPopupOnce() {
-        if (popupShownThisLoad) return;
-        if (overlay) {
-            overlay.classList.add('active');
-            popupShownThisLoad = true;
-        }
-    }
-
-    // Schedule popup once on page load
-    popupTimer = setTimeout(() => {
-        showPopupOnce();
-    }, TRIGGER_DELAY_MS);
-
-    if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
-            dismissPopupPermanentlyUntilReload();
-        });
-    }
-
-    if (remindLaterBtn) {
-        remindLaterBtn.addEventListener('click', () => {
-            dismissPopupPermanentlyUntilReload();
-        });
-    }
-
-    if (submitBtn) {
-        submitBtn.addEventListener('click', () => {
-            const email = emailInput.value.trim();
-            saveEmail(email);
-            emailInput.value = '';
-        });
-    }
-
-    if (emailInput) {
-        emailInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                const email = emailInput.value.trim();
-                saveEmail(email);
-                emailInput.value = '';
-            }
-        });
-    }
-
-    if (overlay) {
-        overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) dismissPopupPermanentlyUntilReload();
-        });
-    }
     </script>
 </body>
 </html>
